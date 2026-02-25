@@ -55,7 +55,9 @@ public class Person {
         return address;
     }
 
-    public Remark getRemark() { return remark; }
+    public Remark getRemark() {
+        return remark;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -115,8 +117,8 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("tags", tags)
                 .add("remark", remark)
+                .add("tags", tags)
                 .toString();
     }
 
