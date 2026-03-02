@@ -372,6 +372,12 @@ Preconditions: At least one record exists.
 
     Use case ends.
 
+**Extensions**
+
+* 2a. No matches found.
+    * 2a1. System informs the user there are no matching records.
+
+      Use case ends.
 
 **Use case: UC07 - Archive an application cycle (representative non-MVP, multi-step)**
 
