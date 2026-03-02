@@ -365,8 +365,6 @@ Preconditions: At least one record exists.
 
 **Use case: UC06 — Search for opportunities by keyword**
 
-Preconditions: At least one record exists.
-
 **MSS**
 
 1.  User requests to search opportunity records matching a keyword. 
@@ -390,8 +388,13 @@ Preconditions: At least one record exists.
 
 **Extensions**
 
-* 2a. No matches found.
-    * 2a1. System informs the user there are no matching records.
+* 1a. No records exist.
+    * 1a1. System informs the user there is nothing to archive.
+
+      Use case ends.
+
+* 2a. Archive fails due to storage write failure.
+    * 2a1. System informs the user the archive operation failed.
 
       Use case ends.
 
