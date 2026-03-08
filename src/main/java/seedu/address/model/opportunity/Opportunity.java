@@ -1,69 +1,89 @@
 package seedu.address.model.opportunity;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Opportunity in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an Opportunity in the address book.
+ * Guarantees: required fields are present and not null, optional fields may be null,
+ * field values are validated by their respective classes, immutable.
  */
 public class Opportunity {
 
-    // Identity fields
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
+    // Required fields
+    private final Company company;
+    private final Role role;
 
-    // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    // Optional fields
+    private final Deadline deadline;
+    private final Status status;
+    private final ContactName contactName;
+    private final ContactDetail contactDetail;
+    private final Notes notes;
 
     /**
-     * Every field must be present and not null.
+     * Constructs an {@code Opportunity}.
+     *
+     * @param company Required company.
+     * @param role Required role.
+     * @param deadline Optional deadline.
+     * @param status Optional status.
+     * @param contactName Optional contact name.
+     * @param contactDetail Optional contact detail.
+     * @param notes Optional notes.
      */
-    public Opportunity(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+    public Opportunity(Company company, Role role, Deadline deadline, Status status,
+            ContactName contactName, ContactDetail contactDetail, Notes notes) {
+
+        requireNonNull(company);
+        requireNonNull(role);
+
+        this.company = company;
+        this.role = role;
+        this.deadline = deadline;
+        this.status = status;
+        this.contactName = contactName;
+        this.contactDetail = contactDetail;
+        this.notes = notes;
     }
 
-    public Name getName() {
-        return name;
+    public Company getCompany() {
+        return company;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Role getRole() {
+        return role;
     }
 
-    public Email getEmail() {
-        return email;
+    public Deadline getDeadline() {
+        return deadline;
     }
 
-    public Address getAddress() {
-        return address;
+    public Status getStatus() {
+        return status;
+    }
+
+    public ContactName getContactName() {
+        return contactName;
+    }
+
+    public ContactDetail getContactDetail() {
+        return contactDetail;
+    }
+
+    public Notes getNotes() {
+        return notes;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    /**
-     * Returns true if both opportunities have the same name.
+     * Returns true if both opportunities have the same company and role.
      * This defines a weaker notion of equality between two opportunities.
+     *
+     * @param otherOpportunity The other opportunity to be compared with.
+     * @return true if both opportunities have the same company and role, false otherwise.
      */
     public boolean isSameOpportunity(Opportunity otherOpportunity) {
         if (otherOpportunity == this) {
@@ -71,7 +91,8 @@ public class Opportunity {
         }
 
         return otherOpportunity != null
-                && otherOpportunity.getName().equals(getName());
+            && otherOpportunity.getCompany().equals(getCompany())
+            && otherOpportunity.getRole().equals(getRole());
     }
 
     /**
@@ -90,28 +111,33 @@ public class Opportunity {
         }
 
         Opportunity otherOpportunity = (Opportunity) other;
-        return name.equals(otherOpportunity.name)
-                && phone.equals(otherOpportunity.phone)
-                && email.equals(otherOpportunity.email)
-                && address.equals(otherOpportunity.address)
-                && tags.equals(otherOpportunity.tags);
+        // Use Objects.equals to handle null optional fields
+        return company.equals(otherOpportunity.company)
+            && role.equals(otherOpportunity.role)
+            && Objects.equals(deadline, otherOpportunity.deadline)
+            && Objects.equals(status, otherOpportunity.status)
+            && Objects.equals(contactName, otherOpportunity.contactName)
+            && Objects.equals(contactDetail, otherOpportunity.contactDetail)
+            && Objects.equals(notes, otherOpportunity.notes);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(company, role, deadline, status, contactName, contactDetail, notes);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .toString();
+            .add("company", company)
+            .add("role", role)
+            .add("deadline", deadline)
+            .add("status", status)
+            .add("contactName", contactName)
+            .add("contactDetail", contactDetail)
+            .add("notes", notes)
+            .toString();
     }
 
 }
