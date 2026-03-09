@@ -17,37 +17,19 @@ public class Opportunity {
     private final Company company;
     private final Role role;
 
-    // Optional fields
-    private final Deadline deadline;
-    private final Status status;
-    private final ContactName contactName;
-    private final ContactDetail contactDetail;
-    private final Notes notes;
-
     /**
      * Constructs an {@code Opportunity}.
      *
      * @param company Required company.
      * @param role Required role.
-     * @param deadline Optional deadline.
-     * @param status Optional status.
-     * @param contactName Optional contact name.
-     * @param contactDetail Optional contact detail.
-     * @param notes Optional notes.
      */
-    public Opportunity(Company company, Role role, Deadline deadline, Status status,
-            ContactName contactName, ContactDetail contactDetail, Notes notes) {
+    public Opportunity(Company company, Role role) {
 
         requireNonNull(company);
         requireNonNull(role);
 
         this.company = company;
         this.role = role;
-        this.deadline = deadline;
-        this.status = status;
-        this.contactName = contactName;
-        this.contactDetail = contactDetail;
-        this.notes = notes;
     }
 
     public Company getCompany() {
@@ -56,26 +38,6 @@ public class Opportunity {
 
     public Role getRole() {
         return role;
-    }
-
-    public Deadline getDeadline() {
-        return deadline;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public ContactName getContactName() {
-        return contactName;
-    }
-
-    public ContactDetail getContactDetail() {
-        return contactDetail;
-    }
-
-    public Notes getNotes() {
-        return notes;
     }
 
     /**
@@ -113,18 +75,13 @@ public class Opportunity {
         Opportunity otherOpportunity = (Opportunity) other;
         // Use Objects.equals to handle null optional fields
         return company.equals(otherOpportunity.company)
-            && role.equals(otherOpportunity.role)
-            && Objects.equals(deadline, otherOpportunity.deadline)
-            && Objects.equals(status, otherOpportunity.status)
-            && Objects.equals(contactName, otherOpportunity.contactName)
-            && Objects.equals(contactDetail, otherOpportunity.contactDetail)
-            && Objects.equals(notes, otherOpportunity.notes);
+            && role.equals(otherOpportunity.role);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(company, role, deadline, status, contactName, contactDetail, notes);
+        return Objects.hash(company, role);
     }
 
     @Override
@@ -132,11 +89,6 @@ public class Opportunity {
         return new ToStringBuilder(this)
             .add("company", company)
             .add("role", role)
-            .add("deadline", deadline)
-            .add("status", status)
-            .add("contactName", contactName)
-            .add("contactDetail", contactDetail)
-            .add("notes", notes)
             .toString();
     }
 
