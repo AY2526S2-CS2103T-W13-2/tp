@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -11,19 +16,29 @@ import seedu.address.model.Model;
 import seedu.address.model.opportunity.Opportunity;
 
 /**
- * Adds a opportunity to the address book.
+ * Adds an opportunity to the tracker.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a opportunity to the tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an opportunity to the tracker. "
             + "Parameters: "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_CONTACT_ROLE + "CONTACT_ROLE "
             + PREFIX_COMPANY + "COMPANY "
-            + PREFIX_ROLE + "ROLE \n"
+            + PREFIX_ROLE + "ROLE "
+            + PREFIX_STATUS + "STATUS "
+            + "[" + PREFIX_PHONE + "PHONE]\n"
             + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "Jane Lim "
+            + PREFIX_EMAIL + "jane@stripe.com "
+            + PREFIX_CONTACT_ROLE + "recruiter "
             + PREFIX_COMPANY + "Stripe "
-            + PREFIX_ROLE + "SWE Intern";
+            + PREFIX_ROLE + "SWE Intern "
+            + PREFIX_STATUS + "APPLIED "
+            + PREFIX_PHONE + "98765432";
 
     public static final String MESSAGE_SUCCESS = "New opportunity added: %1$s";
     public static final String MESSAGE_DUPLICATE_OPPORTUNITY = "This opportunity already exists in the tracker.";
