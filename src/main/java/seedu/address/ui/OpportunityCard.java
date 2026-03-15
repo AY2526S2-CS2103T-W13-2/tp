@@ -56,8 +56,7 @@ public class OpportunityCard extends UiPart<Region> {
         email.setText(opportunity.getEmail().value);
         status.setText(opportunity.getStatus().statusName);
         opportunity.getPhone().ifPresentOrElse(
-                p -> phone.setText(p.value),
-                () -> phone.setText("")
+                p -> phone.setText(p.value), () -> phone.setText("")
         );
     }
 }
