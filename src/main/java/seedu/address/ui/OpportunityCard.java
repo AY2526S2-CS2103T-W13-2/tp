@@ -26,20 +26,38 @@ public class OpportunityCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label company;
-    @FXML
     private Label id;
     @FXML
+    private Label name;
+    @FXML
+    private Label company;
+    @FXML
+    private Label contactRole;
+    @FXML
     private Label role;
+    @FXML
+    private Label email;
+    @FXML
+    private Label phone;
+    @FXML
+    private Label status;
 
     /**
-     * Creates a {@code OpportunityCode} with the given {@code Opportunity} and index to display.
+     * Creates a {@code OpportunityCard} with the given {@code Opportunity} and index to display.
      */
     public OpportunityCard(Opportunity opportunity, int displayedIndex) {
         super(FXML);
         this.opportunity = opportunity;
         id.setText(displayedIndex + ". ");
+        name.setText(opportunity.getName().fullName);
         company.setText(opportunity.getCompany().companyName);
+        contactRole.setText(opportunity.getContactRole().contactRoleName);
         role.setText(opportunity.getRole().roleName);
+        email.setText(opportunity.getEmail().value);
+        status.setText(opportunity.getStatus().statusName);
+        opportunity.getPhone().ifPresentOrElse(
+                p -> phone.setText(p.value),
+                () -> phone.setText("")
+        );
     }
 }
