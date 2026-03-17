@@ -14,6 +14,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Opportunity> PREDICATE_SHOW_ALL_OPPORTUNITIES = unused -> true;
 
+    /** {@code Predicate} that shows only unarchived opportunities */
+    Predicate<Opportunity> PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES = opportunity -> !opportunity.isArchived();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
