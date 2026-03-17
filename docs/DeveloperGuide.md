@@ -495,6 +495,16 @@ Preconditions: At least one record exists.
 
    Use case ends.
 
+**Use case: UC11 — Exit the application**
+
+**MSS**
+
+1. User requests to exit the application.
+2. System saves any unsaved data.
+3. System closes the application. 
+
+   Use case ends.
+
 ### Non-Functional Requirements
 
 1. **Platform compatibility:** The app must run on Windows 10/11, macOS, and Ubuntu Linux with Java 17 installed.
