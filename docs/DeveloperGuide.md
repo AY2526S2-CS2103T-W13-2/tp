@@ -342,10 +342,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a new opportunity record.
+1. User requests to add a new opportunity contact.
 2. System validates the provided details.
-3. System creates the new opportunity record.
-4. System reflects the newly added record.
+3. System creates the new opportunity contact.
+4. System reflects the newly added opportunity contact.
 
    Use case ends.
 
@@ -356,7 +356,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
         Use case resumes from step 1.
 
 * 2b. Duplicate detected (same Company and Role already exists).
-    * 2c1. System informs the user that a duplicate exists.
+    * 2c1. System informs the user that a duplicate opportunity contact exists.
 
         Use case ends.
 
@@ -408,17 +408,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
-**Use case: UC04 — Update status/stage of an opportunity**
+**Use case: UC04 — Edit an opportunity contact**
 
 Preconditions: At least one record exists.
 
 **MSS**
 
-1.  User requests to <u>list opportunity records (UC3).</u>
-2.  System shows the list of opportunity records.
-3.  User requests to update the status/stage of a specified record.
-4.  System validates the new status value.
-5.  System updates the record.
+1.  User requests to <u>list opportunity contacts (UC3)</u>.
+2.  System shows the list of opportunity contacts.
+3.  User requests to edit the details of a specified opportunity contact.
+4.  System validates the new details.
+5.  System updates the opportunity contact.
 6.  System reflects the update.
 
     Use case ends.
@@ -430,8 +430,8 @@ Preconditions: At least one record exists.
 
     Use case resumes from step 3.
 
-* 4b. Status value is invalid.
-  * 4b1. System shows an error message listing accepted status values.
+* 4b. Provided details are invalid (e.g. Email is not a valid format, Status is not a recognised value).
+  * 4b1. System shows an error message indicating the invalid field(s).
 
     Use case resumes from step 3.
 
