@@ -285,8 +285,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 * manage internship applications faster than a typical mouse/GUI driven app
 * helps user capture, update, and retrieve key application details in seconds
-* reduce missed deadlines and mental overhead while managing concurrent applications
-* serve as a lightweight offline desktop tool
+* reduce the mental overhead of keeping track of recruiters, interviewers, referrers, and other opportunity-related contacts
+* serve as a lightweight offline desktop tool for organizing opportunity contacts
 
 
 ### User stories
