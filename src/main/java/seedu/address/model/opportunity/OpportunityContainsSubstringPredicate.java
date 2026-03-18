@@ -36,6 +36,10 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
 
     @Override
     public boolean test(Opportunity opportunity) {
+        if (opportunity.isArchived()) {
+            return false;
+        }
+
         if (nameKeywords.isEmpty() && companyKeywords.isEmpty()) {
             return false;
         }
