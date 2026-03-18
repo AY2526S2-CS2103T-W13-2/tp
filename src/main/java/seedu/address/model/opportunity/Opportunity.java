@@ -1,10 +1,9 @@
 package seedu.address.model.opportunity;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Objects;
 import java.util.Optional;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -79,8 +78,9 @@ public class Opportunity {
     }
 
     /**
-     * Returns true if both opportunities have the same Company and Role.
-     * This defines a weaker notion of equality between two opportunities.
+     * Returns true if both opportunities have the same Email, Company, and Role.
+     * This defines a weaker notion of equality between two opportunities,
+     * representing the same contact-opportunity relationship.
      */
     public boolean isSameOpportunity(Opportunity otherOpportunity) {
         if (otherOpportunity == this) {
@@ -88,6 +88,7 @@ public class Opportunity {
         }
 
         return otherOpportunity != null
+                && otherOpportunity.getEmail().equals(getEmail())
                 && otherOpportunity.getCompany().equals(getCompany())
                 && otherOpportunity.getRole().equals(getRole());
     }
