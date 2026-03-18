@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showOpportunityAtIndex;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OPPORTUNITY;
@@ -29,19 +28,20 @@ import seedu.address.model.opportunity.Opportunity;
  */
 public class ArchiveCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Opportunity opportunityToArchive = model.getFilteredOpportunityList()
+    public void execute_validIndexFullStorageUnarchivedList_success() {
+        Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
+
+        Opportunity opportunityToArchive = getUnarchivedOpportunities(model)
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
         Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
+
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
                 "\n" + Messages.format(archivedOpportunity));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
         expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
@@ -49,64 +49,37 @@ public class ArchiveCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOpportunityList().size() + 1);
+    public void execute_invalidIndexFullStorageUnarchivedList_throwsCommandException() {
+        Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
+        // ensures that outOfBoundIndex is still in bounds of unarchived opportunity list
+        Index outOfBoundIndex = Index.fromOneBased(getUnarchivedOpportunities(model).size() + 1);
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(outOfBoundIndex));
 
         assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
-        showOpportunityAtIndex(model, INDEX_FIRST_OPPORTUNITY);
+    public void execute_multipleValidIndicesFullStorageUnarchivedList_success() {
+        Model model = createModelWithArchivedOpportunities();
 
-        Opportunity opportunityToArchive = model.getFilteredOpportunityList()
+        Opportunity firstOpportunityToArchive = getUnarchivedOpportunities(model)
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
-        ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
-
-        String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(archivedOpportunity));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
-        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
-
-        assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showOpportunityAtIndex(model, INDEX_FIRST_OPPORTUNITY);
-
-        Index outOfBoundIndex = INDEX_SECOND_OPPORTUNITY;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getOpportunityList().size());
-
-        ArchiveCommand archiveCommand = new ArchiveCommand(List.of(outOfBoundIndex));
-
-        assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_multipleValidIndicesUnfilteredList_success() {
-        Opportunity firstOpportunityToArchive = model.getFilteredOpportunityList()
-                .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity secondOpportunityToArchive = model.getFilteredOpportunityList()
+        Opportunity secondOpportunityToArchive = getUnarchivedOpportunities(model)
                 .get(INDEX_SECOND_OPPORTUNITY.getZeroBased());
 
         Opportunity archivedFirstOpportunity = createArchivedOpportunity(firstOpportunityToArchive);
         Opportunity archivedSecondOpportunity = createArchivedOpportunity(secondOpportunityToArchive);
 
         // Pass indices in ascending order to test the descending sort in execute()
-        ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY));
+        ArchiveCommand archiveCommand =
+                new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY));
 
         // The expected message will have them in descending order because of the sorting implementation
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
                 "\n" + Messages.format(archivedSecondOpportunity)
                         + "\n" + Messages.format(archivedFirstOpportunity));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = createModelWithArchivedOpportunities();
 
         // Archive in descending order to match expectedModel state execution safely
         expectedModel.setOpportunity(secondOpportunityToArchive, archivedSecondOpportunity);
@@ -117,10 +90,20 @@ public class ArchiveCommandTest {
     }
 
     @Test
-    public void execute_validAndInvalidIndicesUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOpportunityList().size() + 1);
+    public void execute_validAndInvalidIndicesFullStorageUnarchivedList_throwsCommandException() {
+        Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
         // Should throw exception as long as one index is invalid
+        Index outOfBoundIndex = Index.fromOneBased(getUnarchivedOpportunities(model).size() + 1);
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, outOfBoundIndex));
+
+        assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_noUnarchivedOpportunities_throwsCommandException() {
+        Model model = createModelWithAllOpportunitiesArchived();
+
+        ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         assertCommandFailure(archiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
     }
@@ -156,21 +139,68 @@ public class ArchiveCommandTest {
     }
 
     /**
+     * Creates a model where the given one-based indices are archived.
+     */
+    private Model createModelWithArchivedOpportunities(Index... indicesToArchive) {
+        Model model = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
+
+        for (Index index : indicesToArchive) {
+            Opportunity originalOpportunity = model.getAddressBook().getOpportunityList().get(index.getZeroBased());
+            Opportunity archivedOpportunity = createArchivedOpportunity(originalOpportunity);
+            model.setOpportunity(originalOpportunity, archivedOpportunity);
+        }
+
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        return model;
+    }
+
+    /**
+     * Creates a model where all opportunities are archived.
+     *
+     * @return a model where all opportunities are archived
+     */
+    private Model createModelWithAllOpportunitiesArchived() {
+        Model model = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
+
+        // By making a copy of the opportunity list, we avoid concurrent modification issues
+        List<Opportunity> opportunities = List.copyOf(model.getAddressBook().getOpportunityList());
+        for (Opportunity opportunity : opportunities) {
+            Opportunity archivedOpportunity = createArchivedOpportunity(opportunity);
+            model.setOpportunity(opportunity, archivedOpportunity);
+        }
+
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        return model;
+    }
+
+    /**
+     * Returns a list of unarchived opportunities from full storage order.
+     *
+     * @param model the model to retrieve unarchived opportunities from
+     * @return a list of unarchived opportunities from full storage order
+     */
+    private List<Opportunity> getUnarchivedOpportunities(Model model) {
+        return model.getAddressBook().getOpportunityList().stream()
+                .filter(opportunity -> !opportunity.isArchived())
+                .toList();
+    }
+
+    /**
      * Creates an archived copy of the given opportunity.
      *
-     * @param opportunityToArchive the opportunity to archive
+     * @param opportunity the opportunity to archive
      * @return an archived copy of the given opportunity
      */
-    private Opportunity createArchivedOpportunity(Opportunity opportunityToArchive) {
+    private Opportunity createArchivedOpportunity(Opportunity opportunity) {
         return new Opportunity(
-                opportunityToArchive.getName(),
-                opportunityToArchive.getEmail(),
-                opportunityToArchive.getContactRole(),
-                opportunityToArchive.getCompany(),
-                opportunityToArchive.getRole(),
-                opportunityToArchive.getStatus(),
+                opportunity.getName(),
+                opportunity.getEmail(),
+                opportunity.getContactRole(),
+                opportunity.getCompany(),
+                opportunity.getRole(),
+                opportunity.getStatus(),
                 true,
-                opportunityToArchive.getPhone().orElse(null)
+                opportunity.getPhone().orElse(null)
         );
     }
 }

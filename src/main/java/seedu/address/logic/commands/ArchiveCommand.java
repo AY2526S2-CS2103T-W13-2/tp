@@ -38,13 +38,20 @@ public class ArchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Opportunity> lastShownList = model.getFilteredOpportunityList();
+        List<Opportunity> fullList = model.getAddressBook().getOpportunityList();
+        List<Opportunity> unarchivedOpportunitiesList = new ArrayList<>();
+
+        for (Opportunity opportunity : fullList) {
+            if (!opportunity.isArchived()) {
+                unarchivedOpportunitiesList.add(opportunity);
+            }
+        }
 
         // Use LinkedHashSet to remove duplicates
         Set<Index> uniqueIndices = new LinkedHashSet<>(targetIndices);
 
         for (Index targetIndex : uniqueIndices) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            if (targetIndex.getZeroBased() >= unarchivedOpportunitiesList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
             }
         }
@@ -57,7 +64,7 @@ public class ArchiveCommand extends Command {
         StringBuilder archivedOpportunities = new StringBuilder();
 
         for (Index targetIndex : sortedIndices) {
-            Opportunity opportunityToArchive = lastShownList.get(targetIndex.getZeroBased());
+            Opportunity opportunityToArchive = unarchivedOpportunitiesList.get(targetIndex.getZeroBased());
             Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
 
             model.setOpportunity(opportunityToArchive, archivedOpportunity);

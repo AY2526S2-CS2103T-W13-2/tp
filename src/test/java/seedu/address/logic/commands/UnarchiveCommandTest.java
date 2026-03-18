@@ -140,6 +140,9 @@ public class UnarchiveCommandTest {
 
     /**
      * Creates a model where the given one-based indices are archived.
+     *
+     * @param indicesToArchive the one-based indices of the opportunities to archive in the model
+     * @return a model where the given one-based indices are archived
      */
     private Model createModelWithArchivedOpportunities(Index... indicesToArchive) {
         Model model = new ModelManager(new AddressBook(getTypicalAddressBook()), new UserPrefs());
@@ -162,7 +165,7 @@ public class UnarchiveCommandTest {
      */
     private List<Opportunity> getArchivedOpportunities(Model model) {
         return model.getAddressBook().getOpportunityList().stream()
-                .filter(Opportunity::isArchived)
+                .filter(opportunity -> opportunity.isArchived())
                 .toList();
     }
 
