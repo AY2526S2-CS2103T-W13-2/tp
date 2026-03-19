@@ -619,6 +619,8 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. To simulate a missing data file, close the app, delete the data file `data/addressbook.json`, and then reopen the app.
+   2. The app should recreate the missing data file and load the sample data without crashing.
+   3. See the [User Guide](UserGuide.md#faq) for how to locate the data file.
 
 1. _{ more test cases …​ }_
