@@ -89,11 +89,15 @@ Examples:
 * `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED p/98765432`
 * `add n/Bob Tan e/bob@google.com cr/hiring manager c/Google r/Backend Engineer s/INTERVIEW`
 
+![add](images/AddContact.png)
+
 ### Listing all opportunities : `list`
 
 Shows all tracked unarchived opportunities.
 
 Format: `list`
+
+![list](images/ListContacts.png)
 
 ### Listing all archived opportunities : `list archive`
 
@@ -102,6 +106,8 @@ Shows all opportunities that have been archived.
 Format: `list archive`
 
 * Use this command before `unarchive` so you can see the indices of archived entries.
+
+![list archive](images/ListArchive.png)
 
 ### Editing an opportunity contact: `edit`
 
@@ -115,6 +121,8 @@ Format: `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st opportunity contact to be `91234567` and `johndoe@example.com` respectively.
+
+![edit](images/EditContact.png)
 
 ### Locating opportunity contacts: `find`
 
@@ -151,6 +159,8 @@ Format: `delete INDEX [MORE_INDICES]...`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd opportunity contact in the tracker.
 * `find c/Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
+
+![delete](images/DeleteContact.png)
 
 ### Archiving an opportunity contact : `archive`
 
@@ -197,6 +207,8 @@ Clears **all** opportunity contacts from InternTrack, including archived ones, g
 </box>
 
 Format: `clear`
+
+![clear](images/ClearContacts.png)
 
 ### Exiting the program : `exit`
 
