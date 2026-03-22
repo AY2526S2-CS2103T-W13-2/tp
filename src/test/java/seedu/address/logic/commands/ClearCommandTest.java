@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -9,6 +13,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.opportunity.Opportunity;
+import seedu.address.testutil.OpportunityBuilder;
 
 public class ClearCommandTest {
 
@@ -25,8 +31,34 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
+        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_clearWhileInArchiveView_resetsToUnarchivedView() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        // Simulate user having run "list archive" prior to clear
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+
+        new ClearCommand().execute(model);
+
+        // Verify the predicate was reset by loading data back via setAddressBook
+        // (bypasses addOpportunity, which has its own predicate reset side-effect)
+        Opportunity unarchived = new OpportunityBuilder().build();
+        Opportunity archived = new OpportunityBuilder()
+                .withCompany("ArchivedCo").withRole("Archived Role").withArchived(true).build();
+        AddressBook bookWithBoth = new AddressBook();
+        bookWithBoth.addOpportunity(unarchived);
+        bookWithBoth.addOpportunity(archived);
+        model.setAddressBook(bookWithBoth);
+
+        // After clear the predicate must be PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES,
+        // so only the unarchived opportunity should be visible
+        assertEquals(1, model.getFilteredOpportunityList().size());
+        assertFalse(model.getFilteredOpportunityList().get(0).isArchived());
     }
 
 }
