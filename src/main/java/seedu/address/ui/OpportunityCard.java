@@ -59,7 +59,14 @@ public class OpportunityCard extends UiPart<Region> {
         status.setText(opportunity.getStatus().statusName);
         cycle.setText(opportunity.getCycle().value);
         opportunity.getPhone().ifPresentOrElse(
-                p -> phone.setText(p.value), () -> phone.setText("")
+                p -> {
+                    phone.setText(p.value);
+                    phone.setVisible(true);
+                    phone.setManaged(true);
+                }, () -> {
+                    phone.setVisible(false);
+                    phone.setManaged(false);
+                }
         );
     }
 }
