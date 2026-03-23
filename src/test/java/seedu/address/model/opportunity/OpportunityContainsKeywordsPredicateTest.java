@@ -70,6 +70,16 @@ public class OpportunityContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_archivedOpportunityCanStillMatch_returnsTrue() {
+        OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(
+                Collections.singletonList("Ali"));
+        assertTrue(predicate.test(new OpportunityBuilder()
+                .withName("Alice Tan")
+                .withArchived(true)
+                .build()));
+    }
+
+    @Test
     public void test_keywordsDoNotMatch_returnsFalse() {
         OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(
                 Collections.emptyList());
