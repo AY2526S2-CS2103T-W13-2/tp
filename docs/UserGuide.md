@@ -193,6 +193,7 @@ Format: `unarchive INDEX [MORE_INDICES]...`
 
 * Unarchives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed archived opportunity contact list.
+* This works for both `list archive` results and archived search results from `find -a ...`.
 * The index **must be a positive integer** 1, 2, 3, …​
 * If multiple indices are provided, they must be separated by spaces.
 
