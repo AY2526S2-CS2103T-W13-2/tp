@@ -35,7 +35,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all tracked contacts, including archived ones.
+   * `clear` : Deletes all tracked opportunity contacts, including archived ones.
 
    * `exit` : Exits the app.
 
@@ -206,7 +206,7 @@ Clears **all** opportunity contacts from InternTrack, including archived ones, g
 
 <box type="warning" seamless>
 
-**Caution:** `clear` permanently removes all records, including archived ones. This action cannot be undone.
+**Caution:** `clear` permanently removes all opportunity contacts, including archived ones. This action cannot be undone.
 
 </box>
 
@@ -256,7 +256,7 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 **A:** The specified index does not match any record in the currently displayed list. Use the index shown in the latest displayed list.
 
 **Q: Can an archived record be restored?**
-**A:** Yes. First use the `list archive` command to view archived records, then use the `unarchive` command to restore the selected archived opportunity record to the active list.
+**A:** Yes. First use the `list archive` command to view archived opportunity contacts, then use the `unarchive` command to restore the selected archived opportunity record to the active list.
 
 **Q: What happens if the data file cannot be read or written?**
 **A:** InternTrack will not crash and will inform you that the storage operation has failed.
