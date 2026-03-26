@@ -356,8 +356,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes from step 1.
 
-* 2b. Duplicate detected (same Email, Company, and Role already exists).
-    * 2c1. System informs the user that a duplicate opportunity contact exists.
+* 2b. Duplicate detected (same Email, Company, Role and Cycle already exists).
+    * 2b1. System informs the user that a duplicate opportunity contact exists.
 
         Use case ends.
 
@@ -562,7 +562,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 * **Deadline**: The date/time by which a submission, follow-up, or action is due for a tracked record.
 * **Outcome**: A terminal result of the tracked interaction or associated opportunity (e.g. OFFER, REJECTED, WITHDRAWN).
 * **Keyword**: A text fragment used to search or filter records.
-* **Duplicate record**: Two records that refer to the same tracked contact-opportunity relationship under the project’s duplicate rule (e.g., same Email, Company and Role).
+* **Duplicate record**: Two records that refer to the same tracked contact-opportunity relationship under the project’s duplicate rule (e.g., same Email, Company, Role and Cycle).
 * **Index**: A temporary 1-based position number shown in a displayed list.
 * **MSS**: Main Success Scenario; the most straightforward interaction for a given use case, assuming nothing goes wrong.
 * **Persistence**: The ability to save and load data across sessions from local storage.
