@@ -351,7 +351,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. Required details are missing (Name, Email, Contact Role, Company, Role, or Status).
+* 2a. Required details are missing (Name, Email, Contact Role, Company, Role, Status, or Cycle).
     * 2a1. System shows an error message indicating missing required details.
 
         Use case resumes from step 1.
