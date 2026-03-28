@@ -168,6 +168,7 @@ public class FindCommandTest {
         OpportunityContainsSubstringPredicate predicate = preparePredicate("jan");
         FindCommand command = new FindCommand(predicate, true);
 
+        expectedScopedModel.setArchiveView(true);
         expectedScopedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
         assertCommandSuccess(command, scopedModel,
                 String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedScopedModel);

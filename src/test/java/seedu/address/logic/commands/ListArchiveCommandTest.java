@@ -30,7 +30,7 @@ public class ListArchiveCommandTest {
 
     @Test
     public void execute_noArchivedOpportunities_showsEmptyMessage() {
-        // All typical opportunities are unarchived by default
+        expectedModel.setArchiveView(true);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
         assertCommandSuccess(new ListArchiveCommand(), model,
                 ListArchiveCommand.MESSAGE_EMPTY, expectedModel);
@@ -52,6 +52,7 @@ public class ListArchiveCommandTest {
 
         Model modelWithArchived = new ModelManager(ab, new UserPrefs());
         Model expectedModelWithArchived = new ModelManager(ab, new UserPrefs());
+        expectedModelWithArchived.setArchiveView(true);
         expectedModelWithArchived.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
@@ -72,6 +73,7 @@ public class ListArchiveCommandTest {
 
         Model allArchivedModel = new ModelManager(ab, new UserPrefs());
         Model expectedAllArchivedModel = new ModelManager(ab, new UserPrefs());
+        expectedAllArchivedModel.setArchiveView(true);
         expectedAllArchivedModel.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
@@ -97,6 +99,7 @@ public class ListArchiveCommandTest {
                 seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
         Model expectedFilteredModel = new ModelManager(ab, new UserPrefs());
+        expectedFilteredModel.setArchiveView(true);
         expectedFilteredModel.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
@@ -108,6 +111,8 @@ public class ListArchiveCommandTest {
     public void execute_emptyAddressBook_showsEmptyMessage() {
         Model emptyModel = new ModelManager(new AddressBook(), new UserPrefs());
         Model expectedEmptyModel = new ModelManager(new AddressBook(), new UserPrefs());
+        expectedEmptyModel.setArchiveView(true);
+        expectedEmptyModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
         assertCommandSuccess(new ListArchiveCommand(), emptyModel,
                 ListArchiveCommand.MESSAGE_EMPTY, expectedEmptyModel);
     }

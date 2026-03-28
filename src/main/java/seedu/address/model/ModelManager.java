@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Opportunity> filteredOpportunities;
+    private boolean isArchiveView = false;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -102,6 +103,7 @@ public class ModelManager implements Model {
     @Override
     public void addOpportunity(Opportunity opportunity) {
         addressBook.addOpportunity(opportunity);
+        setArchiveView(false);
         updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
     }
 
@@ -110,6 +112,16 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedOpportunity);
 
         addressBook.setOpportunity(target, editedOpportunity);
+    }
+
+    @Override
+    public boolean isArchiveView() {
+        return isArchiveView;
+    }
+
+    @Override
+    public void setArchiveView(boolean isArchiveView) {
+        this.isArchiveView = isArchiveView;
     }
 
     //=========== Filtered Opportunity List Accessors =============================================================
@@ -143,7 +155,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredOpportunities.equals(otherModelManager.filteredOpportunities);
+                && filteredOpportunities.equals(otherModelManager.filteredOpportunities)
+                && isArchiveView == otherModelManager.isArchiveView;
     }
 
 }

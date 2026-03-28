@@ -78,6 +78,7 @@ public class LogicManagerTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(List.of("Amy"));
+        expectedModel.setArchiveView(true);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
 
         assertCommandSuccess("find -a Amy", String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedModel);

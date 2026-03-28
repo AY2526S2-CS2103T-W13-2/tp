@@ -57,6 +57,7 @@ public class FindCommand extends Command {
         Predicate<Opportunity> archiveScopePredicate = searchArchived
                 ? PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES
                 : PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
+        model.setArchiveView(searchArchived);
         model.updateFilteredOpportunityList(archiveScopePredicate.and(predicate));
         return new CommandResult(
                 String.format(Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW,

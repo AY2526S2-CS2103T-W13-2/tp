@@ -22,6 +22,7 @@ public class ListArchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setArchiveView(true);
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
         int count = model.getFilteredOpportunityList().size();
         String feedback = count == 0 ? MESSAGE_EMPTY : String.format(MESSAGE_SUCCESS, count);

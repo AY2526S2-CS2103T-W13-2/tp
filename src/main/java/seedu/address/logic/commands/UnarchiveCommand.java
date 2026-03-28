@@ -39,14 +39,13 @@ public class UnarchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
+
+        if (!model.isArchiveView()) {
+            throw new CommandException(MESSAGE_NOT_IN_ARCHIVE_VIEW);
         }
 
-        boolean isViewingArchive = model.getFilteredOpportunityList().stream()
-                .anyMatch(Opportunity::isArchived);
-        if (!isViewingArchive) {
-            throw new CommandException(MESSAGE_NOT_IN_ARCHIVE_VIEW);
+        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
         }
 
         List<Opportunity> displayedArchivedOpportunities = new ArrayList<>(model.getFilteredOpportunityList());

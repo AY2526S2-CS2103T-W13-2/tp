@@ -91,4 +91,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOpportunityList(Predicate<Opportunity> predicate);
+
+    /** Returns true if the model is currently in the archive view. */
+    default boolean isArchiveView() {
+        return false;
+    }
+
+    /** Sets the archive view state of the model. */
+    default void setArchiveView(boolean isArchiveView) {
+        // do nothing by default
+    }
 }

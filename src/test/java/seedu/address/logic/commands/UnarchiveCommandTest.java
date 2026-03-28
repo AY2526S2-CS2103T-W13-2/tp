@@ -200,6 +200,7 @@ public class UnarchiveCommandTest {
             model.setOpportunity(originalOpportunity, archivedOpportunity);
         }
 
+        model.setArchiveView(true);
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
         return model;
     }
@@ -242,6 +243,7 @@ public class UnarchiveCommandTest {
         model.addOpportunity(archivedBenson);
         model.addOpportunity(activeBenson);
 
+        model.setArchiveView(true);
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(List.of("Ben"), List.of("Tik"));
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
