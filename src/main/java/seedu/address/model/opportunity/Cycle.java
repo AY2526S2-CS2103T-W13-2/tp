@@ -38,6 +38,7 @@ public class Cycle {
      * Returns true if a given string is a valid cycle
      */
     public static boolean isValidCycle(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
