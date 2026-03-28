@@ -350,3 +350,56 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+/* ── Status badge shared base ─────────────────────────────────────────────── */
+.status-badge {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11px;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+}
+
+/* ── Per-status palette ───────────────────────────────────────────────────── */
+.status-saved {
+    -fx-text-fill: #D7E6F5;
+    -fx-background-color: #33485C;
+    -fx-border-color: #466179;
+}
+
+.status-applied {
+    -fx-text-fill: #A9D1FF;
+    -fx-background-color: #1F3F68;
+    -fx-border-color: #2E578A;
+}
+
+.status-oa {
+    -fx-text-fill: #D8B8FF;
+    -fx-background-color: #51306E;
+    -fx-border-color: #6A438E;
+}
+
+.status-interview {
+    -fx-text-fill: #FFD8A8;
+    -fx-background-color: #6B4A1E;
+    -fx-border-color: #8C6529;
+}
+
+.status-offer {
+    -fx-text-fill: #B6E7BE;
+    -fx-background-color: #24563A;
+    -fx-border-color: #34714B;
+}
+
+.status-rejected {
+    -fx-text-fill: #FFB8B8;
+    -fx-background-color: #6A2C2C;
+    -fx-border-color: #8B3C3C;
+}
+
+.status-withdrawn {
+    -fx-text-fill: #D0C2C2;
+    -fx-background-color: #4B3838;
+    -fx-border-color: #644A4A;
+}
