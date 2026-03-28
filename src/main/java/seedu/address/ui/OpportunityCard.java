@@ -45,16 +45,6 @@ public class OpportunityCard extends UiPart<Region> {
     private Label cycle;
 
     /**
-     * Returns the CSS style class for the given status name.
-     * The class follows the pattern {@code status-<lowercase>},
-     * e.g. {@code "status-applied"} for {@code "APPLIED"}.
-     * Each returned class has a corresponding rule in {@code DarkTheme.css}.
-     */
-    static String getStatusStyleClass(String statusName) {
-        return "status-" + statusName.toLowerCase();
-    }
-
-    /**
      * Creates a {@code OpportunityCard} with the given {@code Opportunity} and index to display.
      */
     public OpportunityCard(Opportunity opportunity, int displayedIndex) {
@@ -79,5 +69,15 @@ public class OpportunityCard extends UiPart<Region> {
                     phone.setManaged(false);
                 }
         );
+    }
+
+    /**
+     * Returns the CSS style class for the given status name.
+     * The class follows the pattern {@code status-<lowercase>},
+     * e.g. {@code "status-applied"} for {@code "APPLIED"}.
+     * Each returned class has a corresponding rule in {@code DarkTheme.css}.
+     */
+    static String getStatusStyleClass(String statusName) {
+        return "status-" + statusName.toLowerCase();
     }
 }
