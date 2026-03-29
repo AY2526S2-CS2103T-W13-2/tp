@@ -33,6 +33,7 @@ public class AddCommand extends Command {
             + PREFIX_COMPANY + "COMPANY "
             + PREFIX_ROLE + "ROLE "
             + PREFIX_STATUS + "STATUS "
+            + PREFIX_CYCLE + "CYCLE "
             + "[" + PREFIX_PHONE + "PHONE]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Jane Lim "
