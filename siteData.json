@@ -51,7 +51,7 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
-        "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
+        "undo-feature": "Undo feature",
         "data-archiving": "Data archiving",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
@@ -63,6 +63,7 @@
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-an-opportunity": "Deleting an opportunity",
+        "undoing-a-command": "Undoing a command",
         "saving-data": "Saving data"
       },
       "headingKeywords": {}
@@ -119,6 +120,7 @@
         "archiving-an-opportunity-contact-archive": "Archiving an opportunity contact : archive",
         "unarchiving-an-opportunity-contact-unarchive": "Unarchiving an opportunity contact : unarchive",
         "listing-all-archived-opportunities-list-archive": "Listing all archived opportunities : list archive",
+        "undoing-a-command-undo": "Undoing a command: undo",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",
         "saving-the-data": "Saving the data",
