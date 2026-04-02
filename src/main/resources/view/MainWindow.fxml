@@ -44,13 +44,13 @@
         <SplitPane fx:id="mainSplitPane" orientation="VERTICAL" VBox.vgrow="ALWAYS">
           <items>
               <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                        minHeight="100" prefHeight="140">
+                        minHeight="110">
                 <padding>
                     <Insets top="5" right="10" bottom="5" left="10" />
                 </padding>
               </StackPane>
 
-              <VBox VBox.vgrow="ALWAYS">
+              <VBox minHeight="200">
                 <HBox styleClass="pane-with-border" VBox.vgrow="NEVER" alignment="CENTER_LEFT" spacing="6">
                   <padding>
                     <Insets top="5" right="10" bottom="5" left="10" />
