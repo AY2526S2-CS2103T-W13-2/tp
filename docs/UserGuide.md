@@ -129,7 +129,7 @@ Examples:
 ### Locating opportunity contacts: `find`
 
 Finds opportunity contacts whose names contain all of the given keywords, optionally filtered by company.
-By default, `find` searches unarchived opportunities. Add `a/` immediately after `find` to search archived opportunities instead.
+By default, `find` searches unarchived opportunities. Add `a/` to search archived opportunities instead.
 
 Format: `find [a/] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
 
@@ -139,13 +139,15 @@ Format: `find [a/] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MO
 * If a company filter is provided, only contacts whose company matches all given company keywords are returned.
 * If both name keywords and a company filter are provided, both conditions must match.
 * You can search by company only by leaving the name blank. e.g. `find c/Visa`
-* Use `a/` immediately after `find` to search archived opportunities instead of the active list. e.g. `find a/ jan`
+* Use `a/` to search archived opportunities instead of the active list.
+* `a/` can be followed by a space or attached directly to the first name keyword. e.g. `find a/ jan` and `find a/jan` are both valid.
 * `find`, `find c/`, `find a/`, and `find a/ c/` are invalid because at least one search term must be provided.
 
 Examples:
 * `find Jane` returns contacts whose names contain `Jane`
-* `find a/ jan` returns archived contacts whose names contain `jan`
+* `find a/jan` returns archived contacts whose names contain `jan`
 * `find jan c/Tik` returns contacts whose names contain `jan` and whose company contains `Tik`
+* `find c/Visa a/jan` returns archived contacts whose names contain `jan` and whose company contains `Visa`
 * `find a/ c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find jane lim` returns contacts whose names contain both `jane` and `lim`
