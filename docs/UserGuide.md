@@ -242,7 +242,7 @@ Clears **all** opportunity contacts from InternTrack, including archived ones, g
 
 <box type="warning" seamless>
 
-**Caution:** `clear` permanently removes all opportunity contacts, including archived ones. This action cannot be undone.
+**Caution:** `clear` removes all opportunity contacts, including archived ones. Use this command carefully. If needed, you may restore the previous state using `undo` immediately after the command.
 
 </box>
 
