@@ -77,7 +77,7 @@ public class ArchiveCycleCommandTest {
     }
 
     @Test
-    public void execute_whileViewingArchiveList_archivesMatchingActiveOpportunities() {
+    public void execute_whileViewingArchiveList_throwsCommandException() {
         Opportunity summerFirst = new OpportunityBuilder()
                 .withName("Summer One")
                 .withEmail("summer.one@example.com")
@@ -99,19 +99,17 @@ public class ArchiveCycleCommandTest {
                 .build();
 
         Model model = createModel(summerFirst, winterOnly, archivedSummer);
+        model.setArchiveView(true);
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
         ArchiveCycleCommand archiveCycleCommand = new ArchiveCycleCommand(SUMMER_2026);
-        Opportunity archivedSummerFirst = createArchivedOpportunity(summerFirst);
-        String expectedMessage = String.format(ArchiveCycleCommand.MESSAGE_ARCHIVE_CYCLE_SUCCESS,
-                1, "opportunity", SUMMER_2026, "\n" + Messages.format(archivedSummerFirst));
 
         Model expectedModel = createModel(summerFirst, winterOnly, archivedSummer);
-        expectedModel.setOpportunity(summerFirst, archivedSummerFirst);
-        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        expectedModel.setArchiveView(true);
+        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
-        expectedModel.commitAddressBook();
-        assertCommandSuccess(archiveCycleCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(archiveCycleCommand, model, ArchiveCommand.MESSAGE_NOT_IN_UNARCHIVED_VIEW);
+        assertEquals(expectedModel, model);
     }
 
     @Test

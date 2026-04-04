@@ -49,6 +49,10 @@ public class ArchiveCycleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.isArchiveView()) {
+            throw new CommandException(ArchiveCommand.MESSAGE_NOT_IN_UNARCHIVED_VIEW);
+        }
+
         List<Opportunity> matchingOpportunities = new ArrayList<>();
         for (Opportunity opportunity : model.getAddressBook().getOpportunityList()) {
             if (!opportunity.isArchived() && opportunity.getCycle().equals(targetCycle)) {
