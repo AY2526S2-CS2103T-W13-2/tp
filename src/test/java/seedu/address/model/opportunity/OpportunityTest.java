@@ -111,6 +111,7 @@ public class OpportunityTest {
                 + ", role=" + ALICE.getRole()
                 + ", status=" + ALICE.getStatus()
                 + ", cycle=" + ALICE.getCycle()
+                + ", isArchived=" + ALICE.isArchived()
                 + ", phone=" + ALICE.getPhone().orElse(null)
                 + "}";
         assertEquals(expected, ALICE.toString());
