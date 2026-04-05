@@ -19,7 +19,8 @@ import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 public class FindCommandParser implements Parser<FindCommand> {
 
     public static final String MESSAGE_ARCHIVE_MISSING_VALUE =
-            "The a/ prefix requires a keyword. Use 'find a/KEYWORD' to search archived opportunities.";
+            "When using a/, keywords must follow it directly. Use 'find a/KEYWORD' to search archived by name, "
+            + "or 'find a/ c/COMPANY' to search archived by company.";
 
     public static final String MESSAGE_AMBIGUOUS_ARCHIVE_KEYWORDS =
             "Keywords cannot appear both before and after a/.\n"

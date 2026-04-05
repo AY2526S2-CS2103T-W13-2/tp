@@ -23,7 +23,8 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all opportunities whose names contain all of "
             + "the specified name keywords (case-insensitive). By default, only unarchived opportunities are "
-            + "searched. Use " + ARCHIVED_FLAG + "KEYWORD to search archived opportunities instead. "
+            + "searched. Use " + ARCHIVED_FLAG + " to search archived opportunities instead. "
+            + "Name keywords must follow a/ directly (e.g. a/jan), or omit them and use c/ for company-only search. "
             + "You can optionally add a company filter with c/.\n"
             + "Parameters: [" + ARCHIVED_FLAG + "[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] "
             + "[c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"

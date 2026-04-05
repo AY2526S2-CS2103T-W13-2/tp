@@ -28,6 +28,8 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " Alice c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " a/ ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " a/ c/ ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -78,6 +80,7 @@ public class FindCommandParserTest {
     public void parse_archiveMissingValue_throwsParseException() {
         assertParseFailure(parser, "google a/", MESSAGE_ARCHIVE_MISSING_VALUE);
         assertParseFailure(parser, "Jane Lim a/", MESSAGE_ARCHIVE_MISSING_VALUE);
+        assertParseFailure(parser, "Alice a/ c/Tik", MESSAGE_ARCHIVE_MISSING_VALUE);
     }
 
     @Test
