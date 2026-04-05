@@ -132,7 +132,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 errorMessages.add(pe.getMessage());
             }
         }
-        
+
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             String rawPhone = argMultimap.getValue(PREFIX_PHONE).get();
             if (rawPhone.trim().isEmpty()) {
