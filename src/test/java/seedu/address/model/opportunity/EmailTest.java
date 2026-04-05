@@ -30,19 +30,13 @@ public class EmailTest {
         assertFalse(Email.isValidEmail(".user@example.com"));
         assertFalse(Email.isValidEmail("+user@example.com"));
         assertFalse(Email.isValidEmail("-user@example.com"));
-        assertFalse(Email.isValidEmail("_user@example.com"));
     }
 
     @Test
-    public void isValidEmail_localPartEndingWithUnderscore_returnsFalse() {
-        assertFalse(Email.isValidEmail("user_@example.com"));
-        assertFalse(Email.isValidEmail("jane_@gmail.com"));
-    }
-
-    @Test
-    public void isValidEmail_underscoreInMiddleOfLocalPart_returnsTrue() {
+    public void isValidEmail_underscoreAtBoundaries_returnsTrue() {
+        assertTrue(Email.isValidEmail("_user@example.com"));
+        assertTrue(Email.isValidEmail("user_@example.com"));
         assertTrue(Email.isValidEmail("user_name@example.com"));
-        assertTrue(Email.isValidEmail("a_b@example.com"));
     }
 
     @Test

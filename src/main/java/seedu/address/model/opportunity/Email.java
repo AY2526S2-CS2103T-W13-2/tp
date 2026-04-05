@@ -12,7 +12,7 @@ public class Email {
     public static final String MESSAGE_CONSTRAINTS =
         "Emails should be of the format local-part@domain and must not be blank.\n"
             + "The local-part may contain alphanumeric characters and the special characters: + _ . -\n"
-            + "The local-part must not start or end with a special character.\n"
+            + "The local-part must not start or end with + . or -\n"
             + "The domain must consist of at least two labels separated by periods,\n"
             + "and each label must be at least 1 character long.";
 
@@ -28,7 +28,7 @@ public class Email {
      *     - each label can contain hyphens in between
      */
     public static final String VALIDATION_REGEX =
-        "[a-zA-Z0-9]([\\w.+\\-]*[a-zA-Z0-9])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
+        "[\\w]([\\w.+\\-]*[\\w])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
 
     public final String value;
 
