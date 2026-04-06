@@ -790,7 +790,7 @@ testers are expected to do more *exploratory* testing.
 1. Rejecting keywords placed before `a/`
 
    1. Test case: `find google a/`<br>
-      Expected: No search is performed. An error is shown indicating that keywords must follow `a/` directly, not precede it.<br><br>
+      Expected: No search is performed. An error is shown indicating that keywords must appear after `a/`, not precede it.<br><br>
 
 1. Rejecting keywords on both sides of `a/`
 
