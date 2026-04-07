@@ -128,15 +128,15 @@ Examples:
 
 ### Locating opportunity contacts: `find`
 
-Finds opportunity contacts whose names contain all of the given keywords, optionally filtered by company.
+Finds opportunity contacts whose names contain any of the given keywords, optionally filtered by company.
 By default, `find` searches unarchived opportunities. Use `a/KEYWORD` or `a/ c/COMPANY` to search archived opportunities instead.
 
 Format: `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
 
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
-* If name keywords are provided, only contacts whose names match all given name keywords are returned.
-* If a company filter is provided, only contacts whose company matches all given company keywords are returned.
+* If name keywords are provided, contacts whose names match any of the given name keywords are returned.
+* If a company filter is provided, contacts whose company matches any of the given company keywords are returned.
 * If both name keywords and a company filter are provided, both conditions must match.
 * You can search by company only by leaving the name blank. e.g. `find c/Visa`
 * Use `a/KEYWORD` to search archived opportunities by name, or `a/ c/COMPANY` to search by company only.
@@ -150,7 +150,7 @@ Examples:
 * `find c/Visa a/jan` returns archived contacts whose names contain `jan` and whose company contains `Visa`
 * `find a/ c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
-* `find jane lim` returns contacts whose names contain both `jane` and `lim`
+* `find jane lim` returns contacts whose names contain `jane` or `lim` (or both)
 ![result for 'find Jane'](images/FindContact.png)
 
 ### Deleting an opportunity contact : `delete`
