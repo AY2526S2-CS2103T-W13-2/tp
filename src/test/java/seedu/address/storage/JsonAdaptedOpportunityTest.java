@@ -13,6 +13,7 @@ import seedu.address.model.opportunity.ContactRole;
 import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
+import seedu.address.model.opportunity.Phone;
 import seedu.address.model.opportunity.Role;
 import seedu.address.model.opportunity.Status;
 
@@ -173,5 +174,15 @@ public class JsonAdaptedOpportunityTest {
                 VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE,
                 VALID_STATUS, VALID_CYCLE, false, null);
         assertEquals(false, opportunity.toModelType().getPhone().isPresent());
+    }
+
+    @Test
+    public void toModelType_formattedPhone_preservesFormatAfterRoundTrip() throws Exception {
+        String formattedPhone = "+65 9123 4567";
+        JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE,
+                VALID_STATUS, VALID_CYCLE, false, formattedPhone);
+        Phone loaded = opportunity.toModelType().getPhone().get();
+        assertEquals(formattedPhone, loaded.getValue());
     }
 }
