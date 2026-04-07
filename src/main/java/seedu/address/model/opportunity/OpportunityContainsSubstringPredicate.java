@@ -42,10 +42,10 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
 
         boolean matchesName = nameKeywords.isEmpty() || nameKeywords.stream()
                 .allMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
-                        opportunity.getName().fullName, keyword));
+                        opportunity.getName().getFullName(), keyword));
         boolean matchesCompany = companyKeywords.isEmpty() || companyKeywords.stream()
                 .allMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
-                        opportunity.getCompany().companyName, keyword));
+                        opportunity.getCompany().getCompanyName(), keyword));
 
         return matchesName && matchesCompany;
     }
