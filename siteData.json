@@ -53,6 +53,7 @@
         "implementation": "Implementation",
         "undo-feature": "Undo feature",
         "data-archiving": "Data archiving",
+        "input-validation-philosophy": "Input validation philosophy",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
