@@ -87,13 +87,22 @@ Adds an opportunity contact to InternTrack.
 
 Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]​`
 
-* `NAME` can contain alphabetic characters, digits, spaces, and common punctuation marks: `'` (apostrophe), `-` (hyphen), `.` (period), `,` (comma), `(` `)` (parentheses), `&` (ampersand). Can start with any allowed character. Maximum length: 60 characters.
-  * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`, `R&D Team`
-  * Placeholder examples: `...`, `(TBD)`, `---` (when name is unknown)
-* `CONTACT_ROLE` can contain alphanumeric characters, spaces, and punctuation marks: `-` (hyphen), `'` (apostrophe), `.` (period), `,` (comma), `(` `)` (parentheses), `&` (ampersand). Can start with any allowed character. Maximum length: 50 characters.
-  * Examples: `recruiter`, `Sr. Recruiter`, `HR & Talent Acquisition`, `VP, Engineering (Tech)`
+* `NAME` can contain any characters except forward slash (`/`). Maximum length: 60 characters.
+  * The forward slash is reserved for CLI command syntax (e.g., `n/`, `cr/`, `c/`).
+  * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`, `R&D Team`, `@John`, `???`
+  * Supports Unicode: `李明`, `Müller`, `Владимир`
+  * Placeholder examples: `...`, `(TBD)`, `---`, `???` (when name is unknown)
+* `CONTACT_ROLE` can contain any characters except forward slash (`/`). Maximum length: 50 characters.
+  * The forward slash is reserved for CLI command syntax.
+  * Examples: `recruiter`, `Sr. Recruiter`, `HR & Talent Acquisition`, `VP, Engineering (Tech)`, `C++ Developer`
   * Placeholder examples: `...`, `(TBD)`, `---` (when role is unknown)
-* **Note:** Forward slash (`/`) is not allowed in names or contact roles as it conflicts with the CLI syntax.
+* `COMPANY` can contain any characters except forward slash (`/`). Maximum length: 60 characters.
+  * Examples: `Google`, `Apple Inc.`, `AT&T`, `3M Company`, `$100M Startup`
+  * Supports Unicode and international company names
+* `ROLE` can contain any characters except forward slash (`/`). Maximum length: 80 characters.
+  * Examples: `Software Engineer`, `SWE-ML Engineer`, `C++ Developer`, `Full-Stack (React & Node)`
+  * Note: Use `-`, `&`, or `()` instead of `/` for compound roles (e.g., `SWE-ML` instead of `SWE/ML`)
+* **Important:** Forward slash (`/`) is not allowed in NAME, CONTACT_ROLE, COMPANY, or ROLE fields as it conflicts with the CLI syntax.
 * **Tip:** If you don't yet know a contact's name or role, use a placeholder like `...` or `(TBD)` and update it later with the `edit` command.
 * `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, may optionally start with `+`, and may use spaces, hyphens, or parentheses as separators (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Separators are stripped before saving.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`. Matching is case-insensitive, so inputs like `saved` or `interview` are also accepted and stored in uppercase.
@@ -105,6 +114,8 @@ Examples:
 * `add n/Bob Tan e/bob@google.com cr/hiring manager c/Google r/Backend Engineer s/INTERVIEW cy/WINTER 2025`
 * `add n/Dr. Mary O'Connor, Ph.D. e/mary@meta.com cr/Sr. VP, R&D (AI) c/Meta r/Research Scientist s/OFFER cy/S1 2026 p/+1-650-555-0100`
 * `add n/... e/placeholder@stripe.com cr/(TBD) c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026` (using placeholders for unknown details)
+* `add n/@John e/john@example.com cr/C++ Developer c/Tech Corp r/Software Engineer s/SAVED cy/SUMMER 2026` (special characters allowed)
+* `add n/李明 e/liming@example.com cr/recruiter c/北京公司 r/软件工程师 s/APPLIED cy/WINTER 2026` (Unicode characters supported)
 
 ![add](images/AddContact.png)
 

@@ -10,18 +10,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Role names must be 1-80 characters and\n"
-            + "can only contain letters, numbers, spaces, and common symbols like &, ., -, ,, (, ), ', /\n"
-            + "and must not be blank";
+        "Role names must be 1-80 characters and cannot contain the forward slash (/) character, "
+            + "as it is reserved for command syntax. All other characters are allowed.";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 80;
 
     /*
-     * The first character of the role name must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Simplified validation: block only forward slash (/) which conflicts with CLI prefix syntax.
+     * First character cannot be whitespace (enforced by trim()).
+     * All other characters (letters, digits, symbols, Unicode, emoji) are allowed.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &.,()'\\-/]*";
+    public static final String VALIDATION_REGEX = "[^/\\s][^/]*";
 
     public final String roleName;
 

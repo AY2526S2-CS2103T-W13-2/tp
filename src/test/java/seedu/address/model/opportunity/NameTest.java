@@ -27,15 +27,12 @@ public class NameTest {
         // invalid names
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-allowed characters
         assertFalse(Name.isValidName("John/Doe")); // contains forward slash
         assertFalse(Name.isValidName("John / Doe")); // contains forward slash with spaces
         assertFalse(Name.isValidName("SWE/ML")); // forward slash (role-like string)
         assertFalse(Name.isValidName("a".repeat(61))); // exceeds max length of 60
-        assertFalse(Name.isValidName("@John")); // starts with non-allowed special character
-        assertFalse(Name.isValidName("#John")); // starts with non-allowed special character
-        assertFalse(Name.isValidName("*John")); // starts with non-allowed special character
+        assertFalse(Name.isValidName("/John")); // starts with forward slash
+        assertFalse(Name.isValidName("/")); // only forward slash
 
         // valid names - basic
         assertTrue(Name.isValidName("peter jack")); // alphabets only
@@ -99,6 +96,21 @@ public class NameTest {
         assertTrue(Name.isValidName("Jr.")); // title/suffix only
         assertTrue(Name.isValidName("Mary-Anne")); // starts with allowed character
         assertTrue(Name.isValidName("a".repeat(60))); // exactly max length
+
+        // valid names - special characters now allowed (simplified validation)
+        assertTrue(Name.isValidName("@John")); // at symbol
+        assertTrue(Name.isValidName("#TeamLead")); // hash symbol
+        assertTrue(Name.isValidName("*StarEmployee*")); // asterisk
+        assertTrue(Name.isValidName("$RichPerson")); // dollar sign
+        assertTrue(Name.isValidName("100%")); // percentage
+        assertTrue(Name.isValidName("C++")); // plus signs
+        assertTrue(Name.isValidName("C#")); // hash (programming context)
+        assertTrue(Name.isValidName("???")); // question marks
+        assertTrue(Name.isValidName("!!!")); // exclamation marks
+        assertTrue(Name.isValidName("[Bracket]")); // brackets
+        assertTrue(Name.isValidName("{Brace}")); // braces
+        assertTrue(Name.isValidName("Name:Value")); // colon
+        assertTrue(Name.isValidName("Item;List")); // semicolon
 
         // valid names - Unicode support (already supported, confirming still works)
         assertTrue(Name.isValidName("李明")); // Chinese characters

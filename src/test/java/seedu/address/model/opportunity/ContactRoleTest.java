@@ -27,14 +27,11 @@ public class ContactRoleTest {
         // invalid contact roles
         assertFalse(ContactRole.isValidContactRole("")); // empty string
         assertFalse(ContactRole.isValidContactRole(" ")); // spaces only
-        assertFalse(ContactRole.isValidContactRole("^")); // only non-alphanumeric characters
-        assertFalse(ContactRole.isValidContactRole("recruiter*")); // contains non-allowed characters
         assertFalse(ContactRole.isValidContactRole("Tech/HR")); // contains forward slash
         assertFalse(ContactRole.isValidContactRole("HR / Recruiting")); // contains forward slash with spaces
         assertFalse(ContactRole.isValidContactRole("a".repeat(51))); // exceeds max length of 50
-        assertFalse(ContactRole.isValidContactRole("@recruiter")); // starts with non-allowed special character
-        assertFalse(ContactRole.isValidContactRole("#recruiter")); // starts with non-allowed special character
-        assertFalse(ContactRole.isValidContactRole("*recruiter")); // starts with non-allowed special character
+        assertFalse(ContactRole.isValidContactRole("/recruiter")); // starts with forward slash
+        assertFalse(ContactRole.isValidContactRole("/")); // only forward slash
 
         // valid contact roles - basic
         assertTrue(ContactRole.isValidContactRole("recruiter")); // single word
@@ -103,6 +100,17 @@ public class ContactRoleTest {
         assertTrue(ContactRole.isValidContactRole("Sr.")); // title only
         assertTrue(ContactRole.isValidContactRole("R&D")); // abbreviation with ampersand
         assertTrue(ContactRole.isValidContactRole("a".repeat(50))); // exactly max length
+
+        // valid contact roles - special characters now allowed (simplified validation)
+        assertTrue(ContactRole.isValidContactRole("@recruiter")); // at symbol
+        assertTrue(ContactRole.isValidContactRole("#TechLead")); // hash symbol
+        assertTrue(ContactRole.isValidContactRole("C++ Developer")); // plus signs
+        assertTrue(ContactRole.isValidContactRole("C# Engineer")); // hash in programming context
+        assertTrue(ContactRole.isValidContactRole("*Lead*")); // asterisks
+        assertTrue(ContactRole.isValidContactRole("???")); // question marks
+        assertTrue(ContactRole.isValidContactRole("!!!")); // exclamation marks
+        assertTrue(ContactRole.isValidContactRole("[Temp]")); // brackets
+        assertTrue(ContactRole.isValidContactRole("recruiter*")); // asterisk now allowed
 
         // valid contact roles - with numbers
         assertTrue(ContactRole.isValidContactRole("L5 Manager")); // level indicator

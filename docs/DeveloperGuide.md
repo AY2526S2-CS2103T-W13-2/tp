@@ -259,45 +259,68 @@ Note that archived records remain subject to uniqueness enforcement. `isSameOppo
 
 ### Input validation philosophy
 
-InternTrack follows a balanced approach to input validation that avoids overzealous restrictions while maintaining data integrity and CLI parsing correctness.
+InternTrack follows a **minimalist validation approach**: only block characters that break the CLI parser, allow everything else.
 
-#### Allowed punctuation in Name and ContactRole fields
+#### Simplified validation for Name, ContactRole, Company, and Role fields
 
-**Rationale for allowing common punctuation:**
+**Rationale for simplified validation:**
 
-The `Name` and `ContactRole` fields accept a wide range of punctuation marks because:
-1. **Real-world usage**: Names like "Mr. John Doe, Jr." and roles like "Sr. HR & Talent Acquisition Manager" are common in professional contexts
-2. **No parsing conflicts**: Characters like periods (`.`), commas (`,`), parentheses (`(` `)`), apostrophes (`'`), hyphens (`-`), and ampersands (`&`) do not interfere with the CLI prefix parsing logic
-3. **Avoiding feature flaws**: Blocking these characters would constitute overzealous input validation, potentially flagged as a usability issue
+The `Name`, `ContactRole`, `Company`, and `Role` fields use a simplified validation strategy that only blocks the forward slash (`/`) character:
 
-**Allowed characters:**
-* **Name field**: Alphabetic characters, digits, spaces, and punctuation: `'` `-` `.` `,` `(` `)` `&`
-  * Can start with any allowed character (including punctuation) to support placeholder values
-  * Examples: `Dr. Mary-Anne O'Connor, Ph.D.`, `李明 (Li Ming)`, `R&D Team`, `...` (placeholder), `(TBD)`
-* **ContactRole field**: Alphanumeric characters, spaces, and punctuation: `-` `'` `.` `,` `(` `)` `&`
-  * Can start with any allowed character (including punctuation) to support placeholder values
-  * Examples: `Sr. VP, R&D (Mobile & Web)`, `Director's Assistant`, `...` (placeholder), `(TBD)`
+1. **Avoid overzealous validation**: Pre-emptively blocking characters leads to false positives and frustrates users
+2. **Support international users**: Allows Unicode names, symbols, emoji, and special characters used globally
+3. **Future-proof**: No need to maintain complex lists of "allowed" characters or update validation for new use cases
+4. **Clear technical justification**: Forward slash (`/`) is blocked because it conflicts with CLI prefix syntax, not arbitrary preference
 
-**Rationale for allowing punctuation at the start:**
+**Validation rules:**
+* **Name field**: Any characters except `/`. Length: 1-60 characters.
+  * Examples: `John Smith`, `@John`, `李明`, `Dr. O'Connor, Jr.`, `???` (placeholder), `C++`
+* **ContactRole field**: Any characters except `/`. Length: 1-50 characters.
+  * Examples: `recruiter`, `C++ Developer`, `#TechLead`, `...` (placeholder), `HR & Recruiting`
+* **Company field**: Any characters except `/`. Length: 1-60 characters.
+  * Examples: `Google`, `3M Company`, `AT&T`, `@Startup`, `北京公司`
+* **Role field**: Any characters except `/`. Length: 1-80 characters.
+  * Examples: `Software Engineer`, `C# Developer`, `SWE-ML Engineer`, `Full-Stack (React+Node)`
 
-Users may add opportunities before gathering complete contact information. They should be able to use placeholder values like `"..."` or `"(TBD)"` for unknown names or roles, then update these fields later when the information becomes available. Preventing this would limit legitimate use cases and constitute overzealous validation.
+**What's allowed:**
+- All Unicode characters (letters, digits, symbols)
+- Special punctuation (@, #, $, %, &, *, !, ?, etc.)
+- Emoji and extended Unicode
+- Placeholder values: `...`, `???`, `(TBD)`, `---`, `!!!`
+- Programming-related names: `C++`, `C#`, `.NET`
 
-**Validation safety:**
-- Empty strings and whitespace-only strings are still prevented through trim() and length validation
-- All characters allowed at the start are already permitted in the middle of the string
-- Length constraints (1-60 for Name, 1-50 for ContactRole) ensure meaningful input
+**What's blocked:**
+- Forward slash (`/`) - conflicts with CLI prefix syntax
+- Leading/trailing whitespace - automatically trimmed
+- Empty strings - prevented by MIN_LENGTH validation
 
 **Rationale for blocking forward slash (`/`):**
 
-The forward slash character is specifically blocked in both fields because:
-1. **CLI prefix delimiter**: InternTrack uses `/` as the prefix delimiter (e.g., `n/`, `cr/`, `c/`)
-2. **Known-prefix edge cases**: The parser only recognizes the prefixes pattern when they are preceded by whitespace (for example, `e/` or `cr/`). Blocking `/` avoids field values that could accidentally resemble such prefix boundaries
-3. **Legitimate technical constraint**: This restriction is based on a real parsing concern, not an arbitrary preference
-4. **Available alternatives**: Users can express the same meaning using hyphens (`SWE-ML`) or parentheses (`SWE (ML)`)
+The forward slash character is specifically blocked in Name, ContactRole, Company, and Role fields because:
+1. **CLI prefix delimiter**: InternTrack uses `/` as the prefix delimiter (e.g., `n/`, `cr/`, `c/`, `r/`)
+2. **Parser safety**: The `ArgumentTokenizer` recognizes prefixes when preceded by whitespace. A field value containing `/` after a space (e.g., `SWE /ML`) could be misinterpreted as a new prefix
+3. **Legitimate technical constraint**: This restriction is based on a real parsing concern, not arbitrary preference
+4. **Available alternatives**: Users can express compound values using:
+   - Hyphens: `SWE-ML Engineer` instead of `SWE/ML Engineer`
+   - Ampersands: `Frontend & Backend` instead of `Frontend/Backend`
+   - Parentheses: `SWE (ML)` instead of `SWE/ML`
 
-The `ArgumentTokenizer` class requires a space before a prefix to recognize it (see `findPrefixPosition()` method), so a value like `SWE/ML` on its own is not treated as multiple prefixes. However, disallowing `/` still keeps field values clearly separated from whitespace-prefixed known prefixes, reducing edge cases and maintaining parser simplicity.
+**Implementation:**
 
-**Design decision:** We prefer to be permissive with harmless characters while maintaining strict boundaries on the one character (`/`) that interacts directly with our CLI prefix syntax. This strikes a balance between user flexibility and technical correctness.
+All four fields use the same regex pattern:
+```java
+public static final String VALIDATION_REGEX = "[^/\\s][^/]*";
+```
+
+This pattern:
+- `[^/\\s]` - First character: NOT slash, NOT whitespace
+- `[^/]*` - Remaining characters: NOT slash (zero or more)
+- Combined with `trim()` to remove leading/trailing whitespace
+- Length validation ensures non-empty input (MIN_LENGTH = 1)
+
+**Design decision:** We prefer to be maximally permissive (allow all characters) while maintaining strict boundaries on the one character (`/`) that directly conflicts with our CLI prefix syntax. This strikes the optimal balance between user flexibility and technical correctness.
+
+**Note on Role field:** Previously, Role.java allowed `/` in its regex (`[\\p{Alnum}][\\p{Alnum} &.,()'\\-/]*`), which was inconsistent with the other fields. This has been corrected to use the same simplified validation pattern for consistency.
 
 
 --------------------------------------------------------------------------------------------------------------------

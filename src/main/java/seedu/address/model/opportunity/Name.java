@@ -10,19 +10,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Names must be 1-60 characters and can contain alphabetic characters (including accented "
-            + "and Unicode letters), digits, spaces, and the following punctuation marks (e.g. ' - . , ( ) &) "
-            + "and must not be blank";
+        "Names must be 1-60 characters and cannot contain the forward slash (/) character, "
+            + "as it is reserved for command syntax. All other characters are allowed.";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 60;
 
     /*
-     * Allow names to start with any permitted character (alphabetic, digit, or punctuation).
-     * This supports placeholder values like "...", "(TBD)", or "---" when the name is unknown.
-     * The first character must not be a whitespace (enforced by trim()).
+     * Simplified validation: block only forward slash (/) which conflicts with CLI prefix syntax.
+     * First character cannot be whitespace (enforced by trim()).
+     * All other characters (letters, digits, symbols, Unicode, emoji) are allowed.
      */
-    public static final String VALIDATION_REGEX = "[\\p{IsAlphabetic}0-9'\\-.,()&][\\p{IsAlphabetic}0-9 '\\-.,()&]*";
+    public static final String VALIDATION_REGEX = "[^/\\s][^/]*";
 
     public final String fullName;
 
