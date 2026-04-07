@@ -554,7 +554,33 @@ Preconditions: At least one opportunity contact exists in the unarchived/active 
 
       Use case ends.
 
-**Use case: UC07 — Unarchive an opportunity contact**
+**Use case: UC07 — Archive opportunity contacts by cycle**
+
+Preconditions: At least one opportunity contact exists in the unarchived/active list.
+
+**MSS**
+
+1.  User requests to <u>list unarchived/active opportunity contacts (UC03)</u>.
+2.  System shows the list of unarchived opportunity contacts.
+3.  User requests to archive all opportunity contacts belonging to a specified cycle from the unarchived list.
+4.  System archives all unarchived opportunity contacts that belong to the specified cycle.
+5.  System confirms that the matching opportunity contacts have been archived.
+
+    Use case ends.
+
+**Extensions**
+
+* 3a. The specified cycle is invalid.
+    * 3a1. System informs the user that the cycle is invalid.
+
+      Use case ends.
+
+* 3b. There are no unarchived opportunity contacts belonging to the specified cycle.
+    * 3b1. System informs the user that no matching opportunity contacts were found.
+
+      Use case ends.
+
+**Use case: UC08 — Unarchive an opportunity contact**
 
 Preconditions: At least one opportunity contact exists in the archived list.
 
@@ -575,7 +601,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
       Use case ends.
 
-**Use case: UC08 — Undo a command**
+**Use case: UC09 — Undo a command**
 
 **MSS**
 
@@ -592,7 +618,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
       Use case ends.
 
-**Use case: UC09 — Clear opportunity contact**
+**Use case: UC10 — Clear opportunity contact**
 
 **MSS**
 
@@ -602,7 +628,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC10 — Request for help**
+**Use case: UC11 — Request for help**
 
 **MSS**
 
@@ -612,7 +638,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC11 — Exit the application**
+**Use case: UC12 — Exit the application**
 
 **MSS**
 
