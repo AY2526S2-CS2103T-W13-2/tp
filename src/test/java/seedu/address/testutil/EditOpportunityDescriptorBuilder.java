@@ -110,7 +110,7 @@ public class EditOpportunityDescriptorBuilder {
      * indicating that the phone field should be cleared on edit.
      */
     public EditOpportunityDescriptorBuilder withClearPhone() {
-        descriptor.setClearPhone(true);
+        descriptor.setShouldClearPhone(true);
         return this;
     }
 
