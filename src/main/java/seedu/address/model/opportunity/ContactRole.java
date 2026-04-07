@@ -10,18 +10,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ContactRole {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Contact roles must be 1-50 characters and can\n"
-            + "only contain alphanumeric characters, spaces, and hyphens, and must not be blank.\n"
-            + "Examples: recruiter, interviewer, referrer, hiring manager";
+        "Contact roles must be 1-50 characters and cannot contain the forward slash (/) character, "
+            + "as it is reserved for command syntax. All other characters are allowed.";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 50;
 
     /*
-     * The first character must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Simplified validation: block only forward slash (/) which conflicts with CLI prefix syntax.
+     * First character cannot be whitespace (enforced by trim()).
+     * All other characters (letters, digits, symbols, Unicode, emoji) are allowed.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
+    public static final String VALIDATION_REGEX = "[^/\\s][^/]*";
 
     private final String contactRoleName;
 

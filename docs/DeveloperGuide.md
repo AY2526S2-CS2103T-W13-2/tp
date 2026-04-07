@@ -257,6 +257,72 @@ This approach keeps the implementation simple because it extends the existing re
 
 Note that archived records remain subject to uniqueness enforcement. `isSameOpportunity()` does not compare the `isArchived` flag, so an archived and an active record with the same Email, Company, Role, and Cycle cannot coexist in the tracker. Attempting to add a record whose identity matches an archived entry will be rejected. The user should use `unarchive` to restore the archived entry instead.
 
+### Input validation philosophy
+
+InternTrack follows a **minimalist validation approach**: only block characters that break the CLI parser, allow everything else.
+
+#### Simplified validation for Name, ContactRole, Company, and Role fields
+
+**Rationale for simplified validation:**
+
+The `Name`, `ContactRole`, `Company`, and `Role` fields use a simplified validation strategy that only blocks the forward slash (`/`) character:
+
+1. **Avoid overzealous validation**: Pre-emptively blocking characters leads to false positives and frustrates users
+2. **Support international users**: Allows Unicode names, symbols, emoji, and special characters used globally
+3. **Future-proof**: No need to maintain complex lists of "allowed" characters or update validation for new use cases
+4. **Clear technical justification**: Forward slash (`/`) is blocked because it conflicts with CLI prefix syntax, not arbitrary preference
+
+**Validation rules:**
+* **Name field**: Any characters except `/`. Length: 1-60 characters.
+  * Examples: `John Smith`, `@John`, `李明`, `Dr. O'Connor, Jr.`, `???` (placeholder), `C++`
+* **ContactRole field**: Any characters except `/`. Length: 1-50 characters.
+  * Examples: `recruiter`, `C++ Developer`, `#TechLead`, `...` (placeholder), `HR & Recruiting`
+* **Company field**: Any characters except `/`. Length: 1-60 characters.
+  * Examples: `Google`, `3M Company`, `AT&T`, `@Startup`, `北京公司`
+* **Role field**: Any characters except `/`. Length: 1-80 characters.
+  * Examples: `Software Engineer`, `C# Developer`, `SWE-ML Engineer`, `Full-Stack (React+Node)`
+
+**What's allowed:**
+- All Unicode characters (letters, digits, symbols)
+- Special punctuation (@, #, $, %, &, *, !, ?, etc.)
+- Emoji and extended Unicode
+- Placeholder values: `...`, `???`, `(TBD)`, `---`, `!!!`
+- Programming-related names: `C++`, `C#`, `.NET`
+
+**What's blocked:**
+- Forward slash (`/`) - conflicts with CLI prefix syntax
+- Leading/trailing whitespace - automatically trimmed
+- Empty strings - prevented by MIN_LENGTH validation
+
+**Rationale for blocking forward slash (`/`):**
+
+The forward slash character is specifically blocked in Name, ContactRole, Company, and Role fields because:
+1. **CLI prefix delimiter**: InternTrack uses `/` as the prefix delimiter (e.g., `n/`, `cr/`, `c/`, `r/`)
+2. **Parser safety**: The `ArgumentTokenizer` recognizes prefixes when preceded by whitespace. A field value containing `/` after a space (e.g., `SWE /ML`) could be misinterpreted as a new prefix
+3. **Legitimate technical constraint**: This restriction is based on a real parsing concern, not arbitrary preference
+4. **Available alternatives**: Users can express compound values using:
+   - Hyphens: `SWE-ML Engineer` instead of `SWE/ML Engineer`
+   - Ampersands: `Frontend & Backend` instead of `Frontend/Backend`
+   - Parentheses: `SWE (ML)` instead of `SWE/ML`
+
+**Implementation:**
+
+All four fields use the same regex pattern:
+```java
+public static final String VALIDATION_REGEX = "[^/\\s][^/]*";
+```
+
+This pattern:
+- `[^/\\s]` - First character: NOT slash, NOT whitespace
+- `[^/]*` - Remaining characters: NOT slash (zero or more)
+- Combined with `trim()` to remove leading/trailing whitespace
+- Length validation ensures non-empty input (MIN_LENGTH = 1)
+
+**Design decision:** We prefer to be maximally permissive (allow all characters) while maintaining strict boundaries on the one character (`/`) that directly conflicts with our CLI prefix syntax. This strikes the optimal balance between user flexibility and technical correctness.
+
+**Note on Role field:** Previously, Role.java allowed `/` in its regex (`[\\p{Alnum}][\\p{Alnum} &.,()'\\-/]*`), which was inconsistent with the other fields. This has been corrected to use the same simplified validation pattern for consistency.
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
