@@ -47,14 +47,14 @@ public class PhoneTest {
 
     @Test
     public void constructor_separatorsPreserved() {
-        assertEquals("+65 9123 4567", new Phone("+65 9123 4567").value);
-        assertEquals("+1-800-555-0100", new Phone("+1-800-555-0100").value);
-        assertEquals("+1 (212) 555-0199", new Phone("+1 (212) 555-0199").value);
+        assertEquals("+65 9123 4567", new Phone("+65 9123 4567").getValue());
+        assertEquals("+1-800-555-0100", new Phone("+1-800-555-0100").getValue());
+        assertEquals("+1 (212) 555-0199", new Phone("+1 (212) 555-0199").getValue());
     }
 
     @Test
     public void constructor_plainDigitsPreserved() {
-        assertEquals("91234567", new Phone("91234567").value);
-        assertEquals("+6591234567", new Phone("+6591234567").value);
+        assertEquals("91234567", new Phone("91234567").getValue());
+        assertEquals("+6591234567", new Phone("+6591234567").getValue());
     }
 }
