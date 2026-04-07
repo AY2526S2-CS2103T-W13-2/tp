@@ -104,7 +104,7 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
   * Note: Use `-`, `&`, or `()` instead of `/` for compound roles (e.g., `SWE-ML` instead of `SWE/ML`)
 * **Important:** Forward slash (`/`) is not allowed in NAME, CONTACT_ROLE, COMPANY, or ROLE fields as it conflicts with the CLI syntax.
 * **Tip:** If you don't yet know a contact's name or role, use a placeholder like `...` or `(TBD)` and update it later with the `edit` command.
-* `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, may optionally start with `+`, and may use spaces, hyphens, or parentheses as separators (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Separators are stripped before saving.
+* `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, must start and end with a digit, and may optionally have `+` at the very start immediately followed by a digit. Spaces, hyphens, and parentheses may be used as separators **between digits** only (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Leading and trailing whitespace is trimmed before saving; otherwise, the entered phone-number formatting is preserved.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`. Matching is case-insensitive, so inputs like `saved` or `interview` are also accepted and stored in uppercase.
 * `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
 * Archived records still count toward duplicate detection. If you try to add a record with the same Email, Company, Role, and Cycle as an archived entry, the add will be rejected. Use `unarchive` to restore the existing entry instead.
@@ -343,7 +343,7 @@ Action     | Format, Examples
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
 **List Archive** | `list archive`
-**Undo** | `undo` |
+**Undo** | `undo`
 **Clear**  | `clear`
 **Help**   | `help`
 **Exit**   | `exit`

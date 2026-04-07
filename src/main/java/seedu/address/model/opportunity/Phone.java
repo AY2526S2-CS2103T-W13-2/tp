@@ -10,14 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Phone numbers should contain 3 to 15 digits, may optionally start with '+', "
-            + "and may use spaces, hyphens, or parentheses as separators "
+        "Phone numbers should contain 3 to 15 digits and must start and end with a digit.\n"
+            + "'+' is only allowed at the very start, immediately followed by a digit.\n"
+            + "Spaces, hyphens, and parentheses may be used as separators between digits only.\n"
             + "(e.g. +65 9123 4567, +1-800-555-0100, +1 (212) 555-0199)";
 
     public static final int MIN_DIGITS = 3;
     public static final int MAX_DIGITS = 15;
 
-    public static final String VALIDATION_REGEX = "\\+?\\d{3,15}";
+    // Structural regex: must start (after optional '+') and end with a digit; separators only in between
+    private static final String STRUCTURAL_REGEX = "\\+?\\d[\\d\\s()\\-]*\\d|\\+?\\d";
 
     private final String value;
 
@@ -30,7 +32,7 @@ public class Phone {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         checkArgument(isValidPhone(trimmedPhone), MESSAGE_CONSTRAINTS);
-        this.value = normalize(trimmedPhone);
+        this.value = trimmedPhone;
     }
 
     public String getValue() {
@@ -39,11 +41,17 @@ public class Phone {
 
     /**
      * Returns true if a given string is a valid phone number.
-     * Spaces, hyphens, and parentheses are treated as separators and ignored during validation.
+     * The raw input must start and end with a digit (with optional leading '+'),
+     * and the digit count (after stripping separators) must be between MIN_DIGITS and MAX_DIGITS.
      */
     public static boolean isValidPhone(String test) {
         requireNonNull(test);
-        return normalize(test.trim()).matches(VALIDATION_REGEX);
+        String trimmed = test.trim();
+        if (!trimmed.matches(STRUCTURAL_REGEX)) {
+            return false;
+        }
+        String digits = normalize(trimmed).replaceAll("\\+", "");
+        return digits.length() >= MIN_DIGITS && digits.length() <= MAX_DIGITS;
     }
 
     /**
