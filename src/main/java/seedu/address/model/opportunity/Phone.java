@@ -17,7 +17,7 @@ public class Phone {
     public static final int MIN_DIGITS = 3;
     public static final int MAX_DIGITS = 15;
 
-    public static final String VALIDATION_REGEX = "\\+?\\d{3,15}";
+    public static final String VALIDATION_REGEX = "\\+?\\d{" + MIN_DIGITS + "," + MAX_DIGITS + "}";
 
     private final String value;
 
