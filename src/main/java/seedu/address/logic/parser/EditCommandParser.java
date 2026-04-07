@@ -70,80 +70,114 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private void populateDescriptor(ArgumentMultimap argMultimap, EditOpportunityDescriptor editOpportunityDescriptor,
                                     List<String> errorMessages) {
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        parseAndSetName(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetEmail(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetContactRole(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetCompany(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetRole(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetStatus(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetCycle(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetPhone(argMultimap, editOpportunityDescriptor, errorMessages);
+    }
+
+    private void parseAndSetName(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                 List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            return;
+        }
+        try {
+            d.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetEmail(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                  List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            return;
+        }
+        try {
+            d.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetContactRole(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                        List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_CONTACT_ROLE).isPresent()) {
+            return;
+        }
+        try {
+            d.setContactRole(ParserUtil.parseContactRole(argMultimap.getValue(PREFIX_CONTACT_ROLE).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetCompany(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                    List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
+            return;
+        }
+        try {
+            d.setCompany(ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetRole(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                 List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            return;
+        }
+        try {
+            d.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetStatus(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                   List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            return;
+        }
+        try {
+            d.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetCycle(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                  List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_CYCLE).isPresent()) {
+            return;
+        }
+        try {
+            d.setCycle(ParserUtil.parseCycle(argMultimap.getValue(PREFIX_CYCLE).get()));
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+        }
+    }
+
+    private void parseAndSetPhone(ArgumentMultimap argMultimap, EditOpportunityDescriptor d,
+                                  List<String> errorMessages) {
+        if (!argMultimap.getValue(PREFIX_PHONE).isPresent()) {
+            return;
+        }
+        String rawPhone = argMultimap.getValue(PREFIX_PHONE).get();
+        if (rawPhone.trim().isEmpty()) {
+            // Empty value signals intent to clear the optional phone field
+            d.setClearPhone(true);
+        } else {
             try {
-                editOpportunityDescriptor.setName(
-                        ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+                d.setPhone(ParserUtil.parsePhone(rawPhone));
             } catch (ParseException pe) {
                 errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            try {
-                editOpportunityDescriptor.setEmail(
-                        ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_CONTACT_ROLE).isPresent()) {
-            try {
-                editOpportunityDescriptor.setContactRole(
-                        ParserUtil.parseContactRole(argMultimap.getValue(PREFIX_CONTACT_ROLE).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
-            try {
-                editOpportunityDescriptor.setCompany(
-                        ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
-            try {
-                editOpportunityDescriptor.setRole(
-                        ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            try {
-                editOpportunityDescriptor.setStatus(
-                        ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_CYCLE).isPresent()) {
-            try {
-                editOpportunityDescriptor.setCycle(
-                        ParserUtil.parseCycle(argMultimap.getValue(PREFIX_CYCLE).get()));
-            } catch (ParseException pe) {
-                errorMessages.add(pe.getMessage());
-            }
-        }
-
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            String rawPhone = argMultimap.getValue(PREFIX_PHONE).get();
-            if (rawPhone.trim().isEmpty()) {
-                // Empty value signals intent to clear the optional phone field
-                editOpportunityDescriptor.setClearPhone(true);
-            } else {
-                try {
-                    editOpportunityDescriptor.setPhone(ParserUtil.parsePhone(rawPhone));
-                } catch (ParseException pe) {
-                    errorMessages.add(pe.getMessage());
-                }
             }
         }
     }
