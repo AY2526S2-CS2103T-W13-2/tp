@@ -46,7 +46,7 @@ destroy UndoCommandParser
 AddressBookParser --> LogicManager : u
 deactivate AddressBookParser
 
-LogicManager -> UndoCommand : execute(Model)
+LogicManager -> UndoCommand : execute(model)
 activate UndoCommand
 
 UndoCommand -> Model : undoAddressBook()
