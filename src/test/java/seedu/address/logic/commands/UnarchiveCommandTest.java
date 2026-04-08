@@ -41,7 +41,7 @@ public class UnarchiveCommandTest {
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(unarchivedOpportunity));
+                1, "opportunity", "\n" + Messages.format(unarchivedOpportunity));
 
         Model expectedModel = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
         expectedModel.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
@@ -78,6 +78,7 @@ public class UnarchiveCommandTest {
 
         // The expected message will have them in descending order because of the sorting implementation
         String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS,
+                2, "opportunities",
                 "\n" + Messages.format(unarchivedSecondOpportunity)
                         + "\n" + Messages.format(unarchivedFirstOpportunity));
 
@@ -111,7 +112,7 @@ public class UnarchiveCommandTest {
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(unarchivedOpportunity));
+                1, "opportunity", "\n" + Messages.format(unarchivedOpportunity));
 
         Model expectedModel = createModelWithArchivedSearchResults();
         expectedModel.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);

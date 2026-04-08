@@ -39,7 +39,7 @@ public class ArchiveCommandTest {
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(archivedOpportunity));
+                1, "opportunity", "\n" + Messages.format(archivedOpportunity));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
@@ -67,7 +67,7 @@ public class ArchiveCommandTest {
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(archivedOpportunity));
+                1, "opportunity", "\n" + Messages.format(archivedOpportunity));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
@@ -103,8 +103,8 @@ public class ArchiveCommandTest {
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(archivedFirstOpportunity)
-                        + "\n" + Messages.format(archivedSecondOpportunity));
+                2, "opportunities",
+                "\n" + Messages.format(archivedFirstOpportunity) + "\n" + Messages.format(archivedSecondOpportunity));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 

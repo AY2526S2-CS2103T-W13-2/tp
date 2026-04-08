@@ -29,7 +29,7 @@ public class ArchiveCommand extends Command {
             + "          " + COMMAND_WORD + " cycle SUMMER 2026\n"
             + "          " + COMMAND_WORD + " cycle S2 2026";
 
-    public static final String MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS = "Archived Opportunity:%1$s";
+    public static final String MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS = "Archived %1$d %2$s:%3$s";
 
     public static final String MESSAGE_NOT_IN_UNARCHIVED_VIEW =
             "You are viewing the archive. Use 'list' first to see unarchived opportunities.";
@@ -72,8 +72,10 @@ public class ArchiveCommand extends Command {
 
         model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
         model.commitAddressBook();
+        int count = opportunitiesToArchive.size();
+        String noun = count == 1 ? "opportunity" : "opportunities";
         return new CommandResult(
-                String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, archivedOpportunities.toString()));
+                String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, count, noun, archivedOpportunities.toString()));
     }
 
     @Override

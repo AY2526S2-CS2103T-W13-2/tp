@@ -36,7 +36,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(opportunityToDelete));
+                1, "opportunity", "\n" + Messages.format(opportunityToDelete));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOpportunity(opportunityToDelete);
@@ -62,7 +62,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(opportunityToDelete));
+                1, "opportunity", "\n" + Messages.format(opportunityToDelete));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOpportunity(opportunityToDelete);
@@ -97,8 +97,8 @@ public class DeleteCommandTest {
 
         // The expected message will have them in descending order because of the sorting implementation
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_OPPORTUNITY_SUCCESS,
-                                        "\n" + Messages.format(secondOpportunityToDelete) + "\n"
-                                                                        + Messages.format(firstOpportunityToDelete));
+                2, "opportunities",
+                "\n" + Messages.format(secondOpportunityToDelete) + "\n" + Messages.format(firstOpportunityToDelete));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         // Delete in descending order to match expectedModel state execution safely

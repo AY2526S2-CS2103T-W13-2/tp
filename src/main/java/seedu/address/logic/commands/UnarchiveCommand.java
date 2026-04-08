@@ -25,7 +25,7 @@ public class UnarchiveCommand extends Command {
             + "Parameters: INDEX [MORE_INDICES]... (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1 2 3";
 
-    public static final String MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS = "Unarchived Opportunity:%1$s";
+    public static final String MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS = "Unarchived %1$d %2$s:%3$s";
 
     public static final String MESSAGE_NOT_IN_ARCHIVE_VIEW =
             "You are not viewing the archive. Use 'list archive' first to see archived opportunities.";
@@ -71,8 +71,10 @@ public class UnarchiveCommand extends Command {
             unarchivedOpportunities.append(String.format("\n%1$s", Messages.format(unarchivedOpportunity)));
         }
         model.commitAddressBook();
+        int count = sortedIndices.size();
+        String noun = count == 1 ? "opportunity" : "opportunities";
         return new CommandResult(
-                String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, unarchivedOpportunities.toString()));
+                String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, count, noun, unarchivedOpportunities.toString()));
     }
 
     @Override
