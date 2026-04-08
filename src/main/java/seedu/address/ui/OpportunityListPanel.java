@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.beans.binding.Bindings;
+import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -41,7 +43,14 @@ public class OpportunityListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new OpportunityCard(opportunity, getIndex() + 1).getRoot());
+                Node card = new OpportunityCard(opportunity, getIndex() + 1).getRoot();
+                if (card instanceof Region) {
+                    Region cardRegion = (Region) card;
+                    cardRegion.prefWidthProperty().bind(Bindings.createDoubleBinding(
+                            () -> Math.max(0, getWidth() - snappedLeftInset() - snappedRightInset()),
+                            widthProperty(), paddingProperty()));
+                }
+                setGraphic(card);
             }
         }
     }
