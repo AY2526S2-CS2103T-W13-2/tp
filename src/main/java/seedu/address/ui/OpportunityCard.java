@@ -45,11 +45,11 @@ public class OpportunityCard extends UiPart<Region> {
      */
     public OpportunityCard(Opportunity opportunity, int displayedIndex) {
         super(FXML);
-        configureFlexibleLabel(nameCompany);
-        configureFlexibleLabel(contactRoleAndRole);
-        configureFlexibleLabel(email);
-        configureFlexibleLabel(phone);
-        configureFlexibleLabel(cycle);
+        configureFlexibleHBoxLabel(nameCompany);
+        configureFlexibleHBoxLabel(contactRoleAndRole);
+        configureWrappedLabel(email);
+        configureFlexibleHBoxLabel(phone);
+        configureWrappedLabel(cycle);
 
         id.setText(displayedIndex + ". ");
         nameCompany.setText(opportunity.getName().getFullName() + " @ "
@@ -72,12 +72,16 @@ public class OpportunityCard extends UiPart<Region> {
         );
     }
 
-    private void configureFlexibleLabel(Label label) {
+    private void configureFlexibleHBoxLabel(Label label) {
+        configureWrappedLabel(label);
+        HBox.setHgrow(label, Priority.ALWAYS);
+    }
+
+    private void configureWrappedLabel(Label label) {
         label.setWrapText(true);
         label.setTextOverrun(OverrunStyle.CLIP);
         label.setMinWidth(0);
         label.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(label, Priority.ALWAYS);
     }
 
     /**
