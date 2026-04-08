@@ -60,9 +60,9 @@ public class DeleteCommand extends Command {
         }
         model.commitAddressBook();
         int count = sortedIndices.size();
-        String noun = count == 1 ? "opportunity" : "opportunities";
         return new CommandResult(
-                String.format(MESSAGE_DELETE_OPPORTUNITY_SUCCESS, count, noun, deletedOpportunities.toString()));
+                String.format(MESSAGE_DELETE_OPPORTUNITY_SUCCESS, count,
+                        Messages.getOpportunityWord(count), deletedOpportunities.toString()));
     }
 
     @Override

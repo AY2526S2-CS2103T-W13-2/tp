@@ -73,9 +73,9 @@ public class ArchiveCommand extends Command {
         model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
         model.commitAddressBook();
         int count = opportunitiesToArchive.size();
-        String noun = count == 1 ? "opportunity" : "opportunities";
         return new CommandResult(
-                String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, count, noun, archivedOpportunities.toString()));
+                String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, count,
+                        Messages.getOpportunityWord(count), archivedOpportunities.toString()));
     }
 
     @Override

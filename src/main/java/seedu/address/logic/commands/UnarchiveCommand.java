@@ -72,9 +72,9 @@ public class UnarchiveCommand extends Command {
         }
         model.commitAddressBook();
         int count = sortedIndices.size();
-        String noun = count == 1 ? "opportunity" : "opportunities";
         return new CommandResult(
-                String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, count, noun, unarchivedOpportunities.toString()));
+                String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, count,
+                        Messages.getOpportunityWord(count), unarchivedOpportunities.toString()));
     }
 
     @Override
