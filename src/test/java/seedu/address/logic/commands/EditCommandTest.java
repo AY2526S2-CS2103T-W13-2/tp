@@ -11,9 +11,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOpportunityAtIndex;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OPPORTUNITY;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.opportunity.Opportunity;
+import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 import seedu.address.testutil.EditOpportunityDescriptorBuilder;
 import seedu.address.testutil.OpportunityBuilder;
 
@@ -125,9 +129,91 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(model.getFilteredOpportunityList().get(0), editedOpportunity);
+        // Filter is preserved after edit — apply the same name-based predicate to the expected model
+        showOpportunityAtIndex(expectedModel, INDEX_FIRST_OPPORTUNITY);
 
         expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_filteredList_itemDisappearsWhenNoLongerMatchingFilter() {
+        // Filter by "Alice" (first word of ALICE's name)
+        showOpportunityAtIndex(model, INDEX_FIRST_OPPORTUNITY);
+        assertEquals(1, model.getFilteredOpportunityList().size());
+
+        Opportunity originalAlice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+
+        // Edit the name so it no longer contains "Alice"
+        Opportunity renamedAlice = new OpportunityBuilder(originalAlice).withName("Zebra Tan").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
+                new EditOpportunityDescriptorBuilder().withName("Zebra Tan").build());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(renamedAlice));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(originalAlice, renamedAlice);
+        // "Alice" filter no longer matches "Zebra Tan" — apply same predicate so expected list is also empty
+        expectedModel.updateFilteredOpportunityList(
+                new OpportunityContainsSubstringPredicate(Arrays.asList("Alice")));
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertEquals(0, model.getFilteredOpportunityList().size());
+    }
+
+    @Test
+    public void execute_archiveViewPreservesArchiveFilter() throws Exception {
+        // Archive ALICE so there is at least one archived entry to edit
+        Opportunity alice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        Opportunity archivedAlice = new OpportunityBuilder(alice).withArchived(true).build();
+        model.setOpportunity(alice, archivedAlice);
+
+        // Switch model to archive view
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+        model.setArchiveView(true);
+        assertEquals(1, model.getFilteredOpportunityList().size());
+
+        // Edit a non-identity field (status) — opportunity stays archived, still matches archive filter
+        Opportunity editedArchivedAlice = new OpportunityBuilder(archivedAlice).withStatus("OFFER").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
+                new EditOpportunityDescriptorBuilder().withStatus("OFFER").build());
+
+        editCommand.execute(model);
+
+        // Archive filter must be preserved — the edited archived opportunity is still visible
+        assertEquals(1, model.getFilteredOpportunityList().size());
+        assertEquals(editedArchivedAlice, model.getFilteredOpportunityList().get(0));
+    }
+
+    @Test
+    public void execute_searchFilteredList_unchangedWhenItemStillMatches() {
+        // Apply a company-only search filter for "Stripe" — only ALICE should match
+        model.updateFilteredOpportunityList(
+                new OpportunityContainsSubstringPredicate(Arrays.asList(), Arrays.asList("Stripe")));
+        assertEquals(1, model.getFilteredOpportunityList().size());
+
+        Opportunity alice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+
+        // Edit status — company unchanged, so ALICE still matches the "Stripe" filter
+        Opportunity editedAlice = new OpportunityBuilder(alice).withStatus("OFFER").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
+                new EditOpportunityDescriptorBuilder().withStatus("OFFER").build());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(editedAlice));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(alice, editedAlice);
+        expectedModel.updateFilteredOpportunityList(
+                new OpportunityContainsSubstringPredicate(Arrays.asList(), Arrays.asList("Stripe")));
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        // Search filter is preserved — edited ALICE still appears (company still "Stripe")
+        assertEquals(1, model.getFilteredOpportunityList().size());
+        assertEquals(editedAlice, model.getFilteredOpportunityList().get(0));
     }
 
     @Test
