@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOpportunityAtIndex;
 import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OPPORTUNITY;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
@@ -164,7 +165,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_archiveViewPreservesArchiveFilter() throws Exception {
+    public void execute_archiveViewPreservesArchiveFilter() {
         // Archive ALICE so there is at least one archived entry to edit
         Opportunity alice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
         Opportunity archivedAlice = new OpportunityBuilder(alice).withArchived(true).build();
@@ -180,23 +181,37 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
                 new EditOpportunityDescriptorBuilder().withStatus("OFFER").build());
 
-        editCommand.execute(model);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(editedArchivedAlice));
 
-        // Archive filter must be preserved — the edited archived opportunity is still visible
+        // expectedModel starts from the same initial state as model. Both the archive setup and the
+        // edit are applied without an intermediate commit so that a single commitAddressBook() here
+        // mirrors the single commit inside execute(), keeping undo histories identical.
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.setOpportunity(alice, archivedAlice);
+        expectedModel.setOpportunity(archivedAlice, editedArchivedAlice);
+        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+        expectedModel.setArchiveView(true);
+        expectedModel.commitAddressBook();
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        // Archive filter is preserved — the edited archived opportunity is still visible
         assertEquals(1, model.getFilteredOpportunityList().size());
         assertEquals(editedArchivedAlice, model.getFilteredOpportunityList().get(0));
     }
 
     @Test
     public void execute_searchFilteredList_unchangedWhenItemStillMatches() {
-        // Apply a company-only search filter for "Stripe" — only ALICE should match
-        model.updateFilteredOpportunityList(
-                new OpportunityContainsSubstringPredicate(Arrays.asList(), Arrays.asList("Stripe")));
+        // Simulate a FindCommand active search for company "Stripe": scoped to unarchived + keyword filter.
+        // Only ALICE (Stripe / SWE Intern) should match.
+        OpportunityContainsSubstringPredicate stripeSearch =
+                new OpportunityContainsSubstringPredicate(Arrays.asList(), Arrays.asList("Stripe"));
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES.and(stripeSearch));
         assertEquals(1, model.getFilteredOpportunityList().size());
 
         Opportunity alice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
 
-        // Edit status — company unchanged, so ALICE still matches the "Stripe" filter
+        // Edit status — company unchanged, so ALICE still matches the "Stripe" filter after edit
         Opportunity editedAlice = new OpportunityBuilder(alice).withStatus("OFFER").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
                 new EditOpportunityDescriptorBuilder().withStatus("OFFER").build());
@@ -206,8 +221,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(alice, editedAlice);
-        expectedModel.updateFilteredOpportunityList(
-                new OpportunityContainsSubstringPredicate(Arrays.asList(), Arrays.asList("Stripe")));
+        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES.and(stripeSearch));
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
