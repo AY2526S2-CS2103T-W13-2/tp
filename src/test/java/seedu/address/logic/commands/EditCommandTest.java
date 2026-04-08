@@ -139,25 +139,27 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_itemDisappearsWhenNoLongerMatchingFilter() {
-        // Filter by "Alice" (first word of ALICE's name)
+        // Filter to show only the first opportunity (by the first word of its name)
         showOpportunityAtIndex(model, INDEX_FIRST_OPPORTUNITY);
         assertEquals(1, model.getFilteredOpportunityList().size());
 
-        Opportunity originalAlice = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        Opportunity originalOpportunity = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        // Capture the keyword that showOpportunityAtIndex used, so the expected predicate stays in sync
+        String filterKeyword = originalOpportunity.getName().getFullName().split("\\s+")[0];
 
-        // Edit the name so it no longer contains "Alice"
-        Opportunity renamedAlice = new OpportunityBuilder(originalAlice).withName("Zebra Tan").build();
+        // Edit the name so it no longer matches the current filter keyword
+        Opportunity renamedOpportunity = new OpportunityBuilder(originalOpportunity).withName("Zebra Tan").build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
                 new EditOpportunityDescriptorBuilder().withName("Zebra Tan").build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
-                Messages.format(renamedAlice));
+                Messages.format(renamedOpportunity));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setOpportunity(originalAlice, renamedAlice);
-        // "Alice" filter no longer matches "Zebra Tan" — apply same predicate so expected list is also empty
+        expectedModel.setOpportunity(originalOpportunity, renamedOpportunity);
+        // Filter keyword no longer matches "Zebra Tan" — apply same predicate so expected list is also empty
         expectedModel.updateFilteredOpportunityList(
-                new OpportunityContainsSubstringPredicate(Arrays.asList("Alice")));
+                new OpportunityContainsSubstringPredicate(Arrays.asList(filterKeyword)));
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
