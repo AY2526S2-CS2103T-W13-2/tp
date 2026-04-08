@@ -162,7 +162,7 @@ public class ModelManager implements Model {
         }
 
         return new ModelStateSnapshot(
-                new VersionedAddressBook(addressBook),
+                addressBook,
                 snapshotPredicate,
                 isArchiveView
         );
