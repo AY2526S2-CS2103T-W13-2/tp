@@ -682,7 +682,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Appendix: Instructions for manual testing
+## **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
