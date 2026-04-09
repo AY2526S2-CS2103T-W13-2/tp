@@ -771,7 +771,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Editing an existing opportunity contact
 
-   1. Prerequisites: List all active opportunities using the `list` command. Ensure there is at least one entry.
+   1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there is at least one entry.
 
    1. Test case: `edit 1 p/90001111 s/INTERVIEW`<br>
       Expected: The first opportunity contact is updated with the new phone and status. A success message is shown.
@@ -861,7 +861,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Archiving an opportunity contact by index
 
-   1. Prerequisites: List all active opportunities using the `list` command. Ensure there is at least one entry.
+   1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there is at least one entry.
 
    1. Test case: `archive 1`<br>
       Expected: The first active opportunity contact is archived and no longer shown in the active list. A success message is shown.
@@ -920,7 +920,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Unarchiving while viewing the active list
 
-   1. Prerequisites: Show active opportunities using the `list` command.
+   1. Prerequisites: Show active opportunity contacts using the `list` command.
 
    1. Test case: `unarchive 1`<br>
       Expected: No opportunity contact is unarchived. Error details are shown — unarchiving only works from the archived list.
