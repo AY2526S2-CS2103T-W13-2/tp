@@ -53,7 +53,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
   e.g. in `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE`, `NAME`, `EMAIL`, `CONTACT_ROLE`, `COMPANY`, `ROLE`, `STATUS` and `CYCLE` are parameters which can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
 * Parameters in square brackets are optional.<br>
-  e.g `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]` can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
+  e.g. `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]` can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
 * Parameters with `...` after them can be used multiple times, including zero times for the repeated portion.<br>
   e.g. in `INDEX [MORE_INDICES]...`, the first `INDEX` is required, while `[MORE_INDICES]...` means zero or more additional indices. So valid inputs include `1`, `1 2`, `1 2 3` etc.
