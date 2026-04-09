@@ -827,7 +827,7 @@ testers are expected to do more *exploratory* testing.
 1. Rejecting invalid find commands
 
    1. Test case: `find a/`<br>
-      Expected: No search is performed. An error is shown — archive search requires at least one keyword.
+      Expected: No search is performed. An invalid command format error with usage instructions is shown.
 
    1. Test case: `find google a/`<br>
       Expected: No search is performed. An error is shown — keywords must appear after `a/`, not before.
