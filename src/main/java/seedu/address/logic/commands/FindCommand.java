@@ -22,12 +22,21 @@ public class FindCommand extends Command {
     public static final String ARCHIVED_FLAG = "a/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds opportunities by name and/or company.\n"
-            + "Parameters: [" + ARCHIVED_FLAG + "[NAME_KEYWORD...]] [c/COMPANY_KEYWORD...]\n"
-            + "  - Active search: find NAME (e.g. find alice)\n"
-            + "  - Archived search: find a/NAME (e.g. find a/jan)\n"
-            + "  - Company filter: find c/COMPANY (e.g. find c/stripe)\n"
-            + "  - Archived + company only: find a/ c/COMPANY (e.g. find a/ c/stripe)\n"
-            + "Note: name keywords must follow a/, not precede it (e.g. 'find a/jan', not 'find jan a/').";
+            + "Format:\n"
+            + "  " + COMMAND_WORD + " NAME_KEYWORD [MORE_NAME_KEYWORDS...] [c/COMPANY_KEYWORD...]\n"
+            + "  " + COMMAND_WORD + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS...]\n"
+            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG
+            + "NAME_KEYWORD [MORE_NAME_KEYWORDS...] [c/COMPANY_KEYWORD...]\n"
+            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG
+            + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS...]\n"
+            + "Examples:\n"
+            + "  " + COMMAND_WORD + " alice\n"
+            + "  " + COMMAND_WORD + " alice bob c/stripe\n"
+            + "  " + COMMAND_WORD + " c/stripe google\n"
+            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG + "jan c/stripe\n"
+            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG + " c/stripe\n"
+            + "Note: archived name keywords must follow a/, not precede it "
+            + "(e.g. 'find a/jan', not 'find jan a/').";
 
     private final OpportunityContainsSubstringPredicate predicate;
     private final boolean searchArchived;

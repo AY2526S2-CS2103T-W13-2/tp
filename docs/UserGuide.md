@@ -156,7 +156,11 @@ Examples:
 Finds opportunity contacts whose names contain any of the given keywords, optionally filtered by company.
 By default, `find` searches unarchived opportunities. Use `a/KEYWORD` or `a/ c/COMPANY` to search archived opportunities instead.
 
-Format: `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+Format:
+* `find NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+* `find c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`
+* `find a/NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+* `find a/ c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`
 
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
@@ -345,7 +349,7 @@ Action     | Format, Examples
 **Add**    | `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]​` <br> e.g., `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/98765432`
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [cy/CYCLE] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
 **List**   | `list`
-**Find**   | `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find a/Jane c/Stripe`
+**Find**   | `find NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br>`find c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`<br>`find a/NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br>`find a/ c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`<br>e.g., `find Jane`<br>e.g., `find c/Stripe`<br>e.g., `find a/Jane c/Stripe`<br>e.g., `find a/ c/Stripe`
 **Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
