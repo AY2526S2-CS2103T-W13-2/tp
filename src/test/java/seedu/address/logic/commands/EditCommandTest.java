@@ -263,7 +263,7 @@ public class EditCommandTest {
         model.setOpportunity(firstOpportunity, archivedVersion);
         model.updateFilteredOpportunityList(seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
-        // Edit the now first visible opportunity originally the second) to match the archived one
+        // Edit the now first visible opportunity originally the second to match the archived one
         EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder(archivedVersion).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY, descriptor);
 
