@@ -838,25 +838,25 @@ testers are expected to do more *exploratory* testing.
    1. Other invalid commands to try: `find`, `find c/`<br>
       Expected: No search is performed. Error details are shown in the status message.
 
-### Deleting an opportunity
+### Deleting an opportunity contact
 
-1. Deleting an opportunity
+1. Deleting an opportunity contact
 
-   1. Prerequisites: List all active opportunities using the `list` command. Ensure there is at least one opportunity.
+   1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there is at least one opportunity contact.
 
    1. Test case: `delete 1`<br>
-      Expected: The first displayed opportunity is deleted. Details of the deleted opportunity are shown.
+      Expected: The first displayed opportunity contact is deleted. Details of the deleted opportunity contact are shown.
 
 1. Rejecting invalid delete commands
 
    1. Test case: `delete 0`<br>
-      Expected: No opportunity is deleted. Error details are shown in the status message.
+      Expected: No opportunity contact is deleted. Error details are shown in the status message.
 
    1. Test case: `delete 1 1`<br>
-      Expected: No opportunity is deleted. Error details are shown in the status message.
+      Expected: No opportunity contact is deleted. Error details are shown in the status message.
 
    1. Other incorrect commands to try: `delete`, `delete x`, `delete 999`<br>
-      Expected: No opportunity is deleted. Error details are shown in the status message.
+      Expected: No opportunity contact is deleted. Error details are shown in the status message.
 
 ### Archiving an opportunity contact
 
@@ -930,7 +930,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Undoing a mutating command
 
-   1. Prerequisites: Execute any mutating command, e.g. `delete 1`.
+   1. Prerequisites: Ensure the active list has at least one opportunity contact (run `list` to check). Execute any mutating command, e.g. `delete 1`.
 
    1. Test case: `undo`<br>
       Expected: The previous state is restored. A success message is shown in the status box.
