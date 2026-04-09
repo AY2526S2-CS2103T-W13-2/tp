@@ -9,6 +9,7 @@ Class XYZCommand
 
 package "Parser classes"{
 Class "<<interface>>\nParser" as Parser
+Class "<<interface>>\nFieldParser" as FieldParser
 Class AddressBookParser
 Class XYZCommandParser
 Class CliSyntax
@@ -33,6 +34,7 @@ XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
+ParserUtil ..> FieldParser
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 @enduml
