@@ -23,12 +23,16 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds opportunities by name and/or company.\n"
             + "Format:\n"
-            + "  " + COMMAND_WORD + " NAME_KEYWORD [MORE_NAME_KEYWORDS...] [c/COMPANY_KEYWORD...]\n"
-            + "  " + COMMAND_WORD + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS...]\n"
-            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG
-            + "NAME_KEYWORD [MORE_NAME_KEYWORDS...] [c/COMPANY_KEYWORD...]\n"
-            + "  " + COMMAND_WORD + " " + ARCHIVED_FLAG
-            + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS...]\n"
+            + "  " + COMMAND_WORD
+            + " NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"
+            + "  " + COMMAND_WORD
+            + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...\n"
+            + "  " + COMMAND_WORD
+            + " " + ARCHIVED_FLAG
+            + "NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"
+            + "  " + COMMAND_WORD
+            + " " + ARCHIVED_FLAG
+            + " c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...\n"
             + "Examples:\n"
             + "  " + COMMAND_WORD + " alice\n"
             + "  " + COMMAND_WORD + " alice bob c/stripe\n"
