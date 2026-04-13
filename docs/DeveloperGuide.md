@@ -1078,3 +1078,17 @@ The test cases below focus on:
 
    1. Execute the same `add` command again.<br>
       Expected: The command now succeeds and the new contact is saved normally.
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Refine duplicate handling for shared-mailbox contacts in `add`**: The current `add` logic rejects any new record
+when `Email + Company + Role + Cycle` matches an existing record, which can wrongly block distinct contacts who use
+the same generic email (e.g., `internships@company.com`). We plan to keep a strict rejection only when **all fields**
+ match after normalization (`Name`, `Email`, `ContactRole`, `Company`, `Role`, `Cycle`, `Status`, `Phone`), and
+change partial matches on the core tuple (`Email + Company + Role + Cycle`) into a **duplicate warning** instead of
+immediate rejection when at least one of `Name`/`ContactRole`/`Status`/`Phone` differs. Example: if `add n/Amy Lee
+e/internships@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026` exists, then `add n/Ben Tan
+e/internships@stripe.com cr/hiring manager c/Stripe r/SWE Intern s/OA cy/SUMMER 2026` should show a
+possible-duplicate warning but still be allowed if the user decides to proceed with the addition or edit.
