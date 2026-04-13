@@ -245,8 +245,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the opportunity record being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### Data archiving
 
 The data archiving feature allows users to hide selected opportunity records from the active list without deleting them.
@@ -384,8 +382,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | busy applicant juggling many applications | recover from accidental destructive actions | one mistake does not wipe critical records |
 | `*` | busy applicant juggling many applications | be warned about potential duplicate contact records | do not track the same contact twice unnecessarily |
 | `*` | frequent user | maintain consistent stage labels | filtering and review remain reliable over time |
-
-*{More to be added}*
 
 ### Use cases
 
