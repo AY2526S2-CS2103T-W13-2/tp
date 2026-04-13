@@ -270,7 +270,7 @@ Format: `undo`
 
 <box type="info" seamless>
 
-**Note:** `undo` restores the previous opportunity data, but it does not restore the previously displayed list, active `find` results, or the current **Main/Archive** view. If the list looks empty or incomplete after `undo`, run `list`, `list archive`, or the relevant `find` command again.
+**Note:** `undo` restores the previous opportunity data only. It keeps the current list filter (including any active `find`) and the current **Main/Archive** tab unchanged, and applies that current view to the restored data. If the list looks empty or incomplete after `undo`, run `list`, `list archive`, or the relevant `find` command to switch to the view you expect.
 
 </box>
 

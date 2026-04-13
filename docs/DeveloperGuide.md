@@ -196,7 +196,7 @@ Step 3. The user executes `add n/David …​` to add a new opportunity contact.
 
 </box>
 
-Step 4. The user now decides that adding the opportunity contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous tracker state, and restores the tracker data to that state.
+Step 4. The user now decides that adding the opportunity contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous tracker state, and restore the tracker data to that state.
 
 <puml src="diagrams/UndoState3.puml" alt="UndoState3" />
 
@@ -618,7 +618,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
       Use case ends.
 
-**Note:** `undo` restores the underlying tracker data only. It does not restore the previously displayed filtered list or the current Main/Archive view.
+**Note:** `undo` restores the underlying tracker data only. It does not modify the current UI state, including the currently displayed filtered list and the selected Main/Archive view.
 
 **Use case: UC10 — Clear opportunity contact**
 
