@@ -29,7 +29,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all tracked contacts.
+   * `list` : Lists all active (unarchived) tracked opportunity contacts.
 
    * `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026` : Adds a contact Jane Lim (recruiter at Stripe) linked to your SWE Intern application for the Summer 2026 cycle.
 
@@ -126,7 +126,7 @@ Examples:
 
 ### Listing all opportunities : `list`
 
-Shows all tracked unarchived opportunities.
+Shows all active (unarchived) tracked opportunity contacts.
 
 Format: `list`
 
