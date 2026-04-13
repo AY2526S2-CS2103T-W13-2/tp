@@ -374,9 +374,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | busy applicant juggling many applications | record a stage or status for a contact record | know my current progress with that contact and opportunity |
 | `* *` | undergraduate applicant | store contact details such as name and email | can follow up without searching through chats or email threads |
 | `* *` | undergraduate applicant | store a contact role for each record | can tell whether someone is a recruiter, interviewer, referrer, or hiring manager |
-| `* *` | busy applicant juggling many applications | record a deadline for a contact record | can keep track of upcoming follow-ups, interviews, or submission-related actions |
-| `* *` | busy applicant juggling many applications | view only records in a chosen stage | can batch-handle similar follow-ups |
-| `* *` | busy applicant juggling many applications | view records ordered by upcoming deadlines | know what to prioritize next |
 | `* *` | busy applicant juggling many applications | remove multiple contact records at once | can clean up outdated records more efficiently |
 | `* *` | end-of-cycle user | archive old records | my current list stays focused without losing history |
 | `* *` | end-of-cycle user | unarchive previously archived records | can restore older records when I need to revisit them |
@@ -385,19 +382,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *` | keyboard-oriented user | exit the app using a command | can close it quickly without leaving the keyboard |
 | `* *` | busy applicant juggling many applications | filter records by company | can focus on all contacts related to one organization at a time |
 | `* *` | busy applicant juggling many applications | recover from accidental destructive actions | one mistake does not wipe critical records |
-| `*` | undergraduate applicant | tag or classify contact records | can separate different kinds of contacts or opportunities quickly |
-| `*` | undergraduate applicant | store short notes for a contact record | can remember context such as referrals, follow-up points, or interview details |
 | `*` | busy applicant juggling many applications | be warned about potential duplicate contact records | do not track the same contact twice unnecessarily |
 | `*` | frequent user | maintain consistent stage labels | filtering and review remain reliable over time |
-| `*` | frequent user | extract key contact information from selected records | can paste it into an email client quickly |
-| `*` | end-of-cycle user | review outcomes by cycle | can improve my application strategy next time |
-| `*` | frequent user | search within notes | can quickly retrieve context like “referral,” “visa,” or “follow-up” |
-| `*` | frequent user | mark records that require follow-up | do not forget to take action |
-| `*` | frequent user | sort records by company or role | can review my contacts in a more organized way |
-| `*` | busy applicant juggling many applications | view only records that require follow-up soon | can quickly identify the contacts that need action next |
-| `*` | end-of-cycle user | export my contact records for a cycle | can keep an external backup or review them outside the app later |
-| `*` | frequent user | filter records by contact role | can focus separately on recruiters, interviewers, referrers, or hiring managers |
-| `*` | frequent user | view a summary of how many records are in each stage | can quickly understand the overall state of my application-related contacts |
 
 *{More to be added}*
 
