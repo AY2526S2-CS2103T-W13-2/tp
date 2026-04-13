@@ -977,6 +977,22 @@ The test cases below focus on:
    1. Test case: `unarchive 1`<br>
       Expected: No opportunity contact is unarchived. Error details are shown because unarchiving only works in the archived list.
 
+1. Commands that work in both views
+
+   1. Deleting from the archived list
+
+      1. Prerequisites: Show archived opportunities using `list archive`. Ensure there is at least one entry.
+
+      1. Test case: `delete 1`<br>
+         Expected: The first displayed archived opportunity contact is permanently deleted. A success message is shown.
+
+   1. Editing from the archived list
+
+      1. Prerequisites: Show archived opportunities using `list archive`. Ensure there is at least one entry.
+
+      1. Test case: `edit 1 s/INTERVIEW`<br>
+         Expected: The first displayed archived opportunity contact is updated and remains archived. A success message is shown.
+
 1. Unarchiving from the archived list
 
    1. Prerequisites: Show archived opportunity contacts using the `list archive` command. Ensure there is at least one entry.

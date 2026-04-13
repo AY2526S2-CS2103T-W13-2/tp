@@ -152,6 +152,12 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st opportunity contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 1 p/` Clears the phone number of the 1st opportunity contact.
 
+<box type="info" seamless>
+
+**Note:** `edit` works on the currently displayed list. If you are viewing archived results via `list archive` or `find a/...`, `edit` updates the selected archived record and keeps it archived. Run `list` first if you want to edit an active record.
+
+</box>
+
 ![edit](images/release_v1.5/Edit.png)
 
 ### Locating opportunity contacts: `find`
@@ -203,6 +209,12 @@ Format: `delete INDEX [MORE_INDICES]...`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd opportunity contact in the tracker.
 * `find c/Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
+
+<box type="warning" seamless>
+
+**Note:** `delete` works on the currently displayed list. If you are viewing archived results via `list archive` or `find a/...`, `delete` permanently removes the selected archived record. Run `list` first if you want to delete from the active list.
+
+</box>
 
 ![delete](images/release_v1.5/Delete.png)
 
