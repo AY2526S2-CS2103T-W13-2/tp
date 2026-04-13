@@ -1109,7 +1109,7 @@ interim, provide clearer parser feedback when unsupported prefixes are used.
 
 3. **Warn users when the data file is corrupted or unreadable on startup**: The current startup behavior follows
 NFR 8 by not crashing and starting with an empty data set when an existing storage file cannot be read or parsed.
-However, this can be confusing because users may not realise that their previous data file was invalid and may
+However, this can be confusing because users may not realize that their previous data file was invalid and may
 accidentally overwrite recoverable data after the next successful autosave. We plan to revise this behavior so that
 InternTrack shows a clear user-facing warning when the existing data file is corrupted or unreadable, explains that
 the previous data could not be loaded, and advises the user to restore or repair the file from a backup if needed.
