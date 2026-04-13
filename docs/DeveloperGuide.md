@@ -1092,3 +1092,12 @@ immediate rejection when at least one of `Name`/`ContactRole`/`Status`/`Phone` d
 e/internships@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026` exists, then `add n/Ben Tan
 e/internships@stripe.com cr/hiring manager c/Stripe r/SWE Intern s/OA cy/SUMMER 2026` should show a
 possible-duplicate warning but still be allowed if the user decides to proceed with the addition or edit.
+
+2. **Warn users when the data file is corrupted or unreadable on startup**: The current startup behavior follows
+NFR 8 by not crashing and starting with an empty data set when an existing storage file cannot be read or parsed.
+However, this can be confusing because users may not realise that their previous data file was invalid and may
+accidentally overwrite recoverable data after the next successful autosave. We plan to revise this behavior so that
+InternTrack shows a clear user-facing warning when the existing data file is corrupted or unreadable, explains that
+the previous data could not be loaded, and advises the user to restore or repair the file from a backup if needed.
+Where feasible, the app should also avoid overwriting the problematic file until the user has acknowledged the issue
+or chosen to start afresh.
