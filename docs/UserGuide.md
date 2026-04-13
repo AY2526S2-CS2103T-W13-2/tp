@@ -61,6 +61,15 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567`, `e/alicia.tan@stripe.com n/Alicia Tan c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 cr/recruiter p/91234567` is also acceptable.
 
+* Top-level command words are case-insensitive.
+e.g. `list`, `LiSt`, and `LIST` are treated as the same command.
+
+* Some command sub-keywords are also case-insensitive where stated.
+e.g. `list archive`, `LiSt ArChIvE`, `archive cycle SUMMER 2026`, and `ArChIvE CyClE summer 2026` are all valid.
+
+* CLI prefixes are case-sensitive and must be entered in lowercase.
+e.g. use `n/`, `e/`, `cr/`, `c/`, `r/`, `s/`, `cy/`, `p/`, and `a/`, not `N/`, `E/`, `CR/`, `C/`, etc.
+
 * Commands that do not take in parameters (such as `undo`, `help`, `exit`, and `clear`) strictly require no extraneous parameters. e.g. if the command specifies `help 123`, it will be rejected with an invalid command format error. However, harmless trailing spaces (e.g., `help   `) will be safely ignored.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -220,6 +229,10 @@ Format:
 * `archive cycle CYCLE` archives all active opportunity contacts with the specified cycle.
 * This command can only be used while in the **Main** view.
 * A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
+* The command word `archive` is case-insensitive.
+  e.g. `archive 2` and `ArChIvE 2` are both valid.
+* In `archive cycle CYCLE`, the sub-keyword `cycle` is also case-insensitive.
+  e.g. `archive cycle SUMMER 2026` and `ArChIvE CyClE summer 2026` are both valid inputs.
 
 Examples:
 * `list` followed by `archive 2` archives the 2nd opportunity contact in the tracker.
@@ -254,6 +267,8 @@ Shows all opportunities that have been archived. Use this command to see the ind
 
 Format: `list archive`
 
+* Both `list` and the sub-keyword `archive` are case-insensitive.
+  e.g. `list archive`, `LiSt ArChIvE`, and `LIST ARCHIVE` are all valid.
 * The **Archive** tab in the view indicator will be highlighted when this command is run.
 
 ![list archive](images/release_v1.5/ListArchive.png)
