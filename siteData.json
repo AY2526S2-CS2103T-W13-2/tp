@@ -70,7 +70,8 @@
         "delete-archive-and-unarchive-edge-cases": "Delete, archive, and unarchive edge cases",
         "undo-edge-cases": "Undo edge cases",
         "clearing-all-entries": "Clearing all entries",
-        "saving-data-and-file-recovery": "Saving data and file recovery"
+        "saving-data-and-file-recovery": "Saving data and file recovery",
+        "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
     },
