@@ -245,8 +245,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the opportunity record being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### Data archiving
 
 The data archiving feature allows users to hide selected opportunity records from the active list without deleting them.
@@ -398,8 +396,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*` | end-of-cycle user | export my contact records for a cycle | can keep an external backup or review them outside the app later |
 | `*` | frequent user | filter records by contact role | can focus separately on recruiters, interviewers, referrers, or hiring managers |
 | `*` | frequent user | view a summary of how many records are in each stage | can quickly understand the overall state of my application-related contacts |
-
-*{More to be added}*
 
 ### Use cases
 
