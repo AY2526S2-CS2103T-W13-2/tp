@@ -909,6 +909,14 @@ The test cases below focus on:
    1. Other invalid commands to try: `find`, `find c/`<br>
       Expected: No search is performed. Error details are shown in the status message.
 
+1. Unsupported `find` prefixes are treated as plain name keywords (current behavior)
+
+   1. Prerequisites: Ensure at least one active contact name contains `Jane`.
+
+   1. Test case: `find Jane r/SWE`<br>
+      Expected: The command is accepted as a name-keyword search (not as a prefixed role filter). Results match names containing
+      `Jane` or `r/SWE` (typically only `Jane` matches). No unsupported-prefix-specific error is shown.
+
 ### Delete, archive, and unarchive edge cases
 
 1. Deleting an opportunity contact
@@ -1092,3 +1100,9 @@ immediate rejection when at least one of `Name`/`ContactRole`/`Status`/`Phone` d
 e/internships@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026` exists, then `add n/Ben Tan
 e/internships@stripe.com cr/hiring manager c/Stripe r/SWE Intern s/OA cy/SUMMER 2026` should show a
 possible-duplicate warning but still be allowed if the user decides to proceed with the addition or edit.
+
+2. **Extend `find` to support additional prefixed filters with explicit errors for unsupported prefixes**: The current
+`find` implementation supports name keywords by default and `c/` for company (with optional `a/` archive scope). Inputs
+such as `find Jane r/SWE` are currently interpreted as plain name keywords instead of raising a targeted error for
+unsupported filter prefixes. We plan to introduce richer prefixed filtering (e.g., role/status/cycle) and, in the
+interim, provide clearer parser feedback when unsupported prefixes are used.
