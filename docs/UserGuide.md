@@ -165,6 +165,7 @@ Format:
 * `find a/NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
 * `find a/ c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`
 
+* Name searches do not use the `n/` prefix. Inputs such as `find n/Jane` or `find a/ n/Jane` are treated as searches for the literal keyword `n/Jane`; use `find Jane` or `find a/Jane` instead.
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
 * Multiple name keywords use **OR** matching — a contact is returned if their name matches any of the keywords. e.g. `find alice bob` returns contacts named "Alice Tan" or "Bob Lim".
