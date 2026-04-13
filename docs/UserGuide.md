@@ -268,6 +268,12 @@ Format: `undo`
 * The `undo` command only works if there is a previous state to restore. If you have just launched the app or have already undone all recent commands, executing `undo` will fail with a "No more commands to undo!" error.
 * Read-only commands (like `list` or `find`) do not modify the tracker's state and cannot be undone.
 
+<box type="info" seamless>
+
+**Note:** `undo` restores the previous opportunity data, but it does not restore the previously displayed list, active `find` results, or the current **Main/Archive** view. If the list looks empty or incomplete after `undo`, run `list`, `list archive`, or the relevant `find` command again.
+
+</box>
+
 ![undo](images/release_v1.5/Undo.png)
 
 ### Clearing all entries : `clear`
