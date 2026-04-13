@@ -259,6 +259,10 @@ Note that archived records remain subject to uniqueness enforcement. `isSameOppo
 
 InternTrack follows a **minimalist validation approach**: only block characters that break the CLI parser, allow everything else.
 
+Command words and certain command sub-keywords are case-insensitive, including `archive` in `list archive` and `cycle` in `archive cycle`.
+
+Prefixes are case-sensitive and must be lowercase, such as `n/`, `e/`, `cr/`, `c/`, `r/`, `s/`, `cy/`, `p/`, and `a/`.
+
 #### Simplified validation for Name, ContactRole, Company, and Role fields
 
 **Rationale for simplified validation:**
