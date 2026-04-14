@@ -823,6 +823,13 @@ The test cases below focus on:
    1. Test case: `edit 1 p/90001111 s/INTERVIEW`<br>
       Expected: The first opportunity contact is updated with the new phone number and status. A success message is shown.
 
+1. Editing an opportunity contact with unchanged values
+
+   1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there are no entries in the active list. If there are entries, run the `clear` command to remove them.
+
+   1. Test case: First, `add n/Jane Lim e/jane.lim@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/91234567`. Once added, run the follwing command: `edit 1 n/Jane Lim e/jane.lim@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/91234567`.
+      Expected: The command succeeds and a success message is shown, even though the values are unchanged.
+
 1. Clearing the phone number of an opportunity contact
 
    1. Prerequisites: Ensure the first displayed opportunity contact has a phone number.
@@ -945,7 +952,7 @@ The test cases below focus on:
 
    1. Test case: `archive 1`<br>
       Expected: The first active opportunity contact is archived, removed from the displayed active list, and the app resets to the full `Main` list. A success message is shown.
-   
+
    1. Prerequisites: Run `find Stripe` and ensure there is at least one active result shown.
 
    1. Test case: `archive 1`<br>
