@@ -552,7 +552,7 @@ Preconditions: At least one opportunity contact exists in the unarchived/active 
 2.  System shows the list of unarchived opportunity contacts.
 3.  User requests to archive all opportunity contacts belonging to a specified cycle from the unarchived list.
 4.  System archives all unarchived opportunity contacts that belong to the specified cycle.
-5.  System confirms that the matching opportunity contacts have been archived.
+5.  System confirms that the matching opportunity contacts have been archived and returns the display to the full **Main** list.
 
     Use case ends.
 
@@ -829,6 +829,14 @@ The test cases below focus on:
 
    1. Test case: `edit 1 p/`<br>
       Expected: The phone number of the first displayed opportunity contact is cleared. A success message is shown.
+
+1. Adding while viewing the archived list
+
+   1. Prerequisites: Run `list archive`.
+
+   1. Test case:
+      `add n/Test User e/test.user@example.com cr/recruiter c/TestCo r/SWE Intern s/SAVED cy/SUMMER 2026`<br>
+      Expected: The opportunity contact is added successfully. InternTrack switches to the full `Main` list, and the new contact appears there.
 
 1. Rejecting invalid edit commands
 
